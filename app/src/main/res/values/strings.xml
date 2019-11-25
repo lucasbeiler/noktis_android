@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Noktis</string>
+    <string name="selecione_data_nascimento">Pick your birthdate</string>
+    <string name="as_horas">at</string>
+    <string name="erro_carregar_imagem">Had a problem loading image</string>
+    <string name="digite_nome">Enter your name</string>
+    <string name="nao_possivel_detectar_localizacao_titulo">Location error!</string>
+    <string name="erro_email_vazio">You need to fill the e-mail field!</string>
+    <string name="erro_senha_vazia">You need to fill the password field!</string>
+    <string name="digite_email">Enter your e-mail</string>
+    <string name="digite_senha">Enter some password</string>
+    <string name="concluir">Done</string>
+    <string name="digite_seu_nome">Enter your name</string>
+    <string name="digite_o_novo_email">Enter your new e-mail</string>
+    <string name="sua_senha_">Password </string>
+    <string name="digite_a_nova_senha">Enter the new password</string>
+    <string name="confirme_a_nova_senha">Enter the new password again</string>
+    <string name="digite_a_senha_atual">Enter your current password</string>
+    <string name="personalize_a_sua_conta">Customize your account</string>
+    <string name="altere_os_dados_abaixo_como_quiser">Change the informations below as you wish to!</string>
+    <string name="encerrar_conta">Delete account</string>
+    <string name="deslogar_conta">Log out</string>
+    <string name="_email"> E-mail</string>
+    <string name="_senha"> Password</string>
+    <string name="login">Login</string>
+    <string name="criar_conta">Create account</string>
+    <string name="lembrar_login">Remember login</string>
+    <string name="cancelar_registro">Cancel</string>
+    <string name="continuar">Proceed</string>
+    <string name="_escolha_uma_senha"> Enter a password</string>
+    <string name="_digite_seu_email"> Enter your e-mail</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+</resources>

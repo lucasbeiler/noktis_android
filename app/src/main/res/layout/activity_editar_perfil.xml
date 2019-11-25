@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context=".ActivityEditarPerfil">
+
+    <Button
+        android:text="@string/concluir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/botaoConcluir"
+        tools:ignore="HardcodedText"
+        android:background="@drawable/botoes_arredondados"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:id="@+id/textoNome"
+        android:textColor="#000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_below="@+id/editarSenha"
+        android:layout_alignParentLeft="true"
+        android:drawableStart="@drawable/ic_descricao"
+        android:drawableEnd="@drawable/icone_editar"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:drawableStart="@drawable/ic_descricao"
+        android:background="@drawable/campos_texto_arredondados"
+        android:layout_marginTop="24dp"
+        android:id="@+id/definirNome"
+        android:hint="@string/digite_seu_nome"
+        android:layout_below="@+id/editarSenha"
+        android:layout_alignParentLeft="true"
+        android:visibility="invisible"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="24dp"
+        android:clickable="true"
+        android:textColor="#000000"
+        android:focusable="true"
+        android:id="@+id/textoEmail"
+        android:layout_below="@+id/imagemConfig"
+        android:layout_alignParentLeft="true"
+        android:drawableStart="@drawable/ic_email"
+        android:drawableEnd="@drawable/icone_editar"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/campos_texto_arredondados"
+        android:layout_marginTop="24dp"
+        android:drawableStart="@drawable/ic_email"
+        android:id="@+id/editarEmail"
+        android:hint="@string/digite_o_novo_email"
+        android:layout_below="@+id/imagemConfig"
+        android:layout_alignParentLeft="true"
+        android:visibility="invisible"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginTop="24dp"
+        android:id="@+id/textoSenha"
+        android:text="@string/sua_senha_"
+        android:drawableStart="@drawable/ic_chave"
+        android:drawableEnd="@drawable/icone_editar"
+        android:layout_below="@+id/editarEmail"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:background="@drawable/campos_texto_arredondados"
+        android:layout_marginTop="24dp"
+        android:id="@+id/editarSenha"
+        android:drawableStart="@drawable/ic_chave"
+        android:hint="@string/digite_a_nova_senha"
+        android:layout_below="@+id/editarEmail"
+        android:layout_alignParentLeft="true"
+        android:visibility="invisible"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:background="@drawable/campos_texto_arredondados"
+        android:layout_marginTop="24dp"
+        android:id="@+id/editarSenha2"
+        android:hint="@string/confirme_a_nova_senha"
+        android:layout_below="@+id/editarSenha"
+        android:layout_alignParentLeft="true"
+        android:visibility="gone"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:background="@drawable/campos_texto_arredondados"
+        android:layout_marginTop="24dp"
+        android:id="@+id/senhaAntiga"
+        android:hint="@string/digite_a_senha_atual"
+        android:layout_below="@+id/editarSenha2"
+        android:layout_alignParentLeft="true"
+        android:visibility="gone"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="@string/personalize_a_sua_conta"
+        android:textSize="18dp"
+        android:textColor="@color/Preto"
+        android:textStyle="bold" />
+    
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/icone_conta"
+        android:layout_marginTop="16dp"
+        android:id="@+id/imagemConfig"
+        android:scaleType="centerCrop"
+        android:saveEnabled="true"
+        tools:ignore="ContentDescription"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        style="@style/SpinKitView.Small.DoubleBounce"
+        android:id="@+id/emblemaCarregamento"
+        android:visibility="gone"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="166dp"
+        app:SpinKit_Color="#1dd648"
+        app:SpinKit_Style="DoubleBounce" />
+    <TextView
+        android:text="@string/altere_os_dados_abaixo_como_quiser"
+        android:layout_width="wrap_content"
+        android:clickable="true"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/apagarConta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/botaoConcluir"
+        android:clickable="true"
+        android:text="@string/encerrar_conta"
+        android:textColor="#f12626"
+        android:textStyle="bold"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:id="@+id/desconectarConta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/apagarConta"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginBottom="0dp"
+        android:clickable="true"
+        android:text="@string/deslogar_conta"
+        android:textColor="#f12626"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/longitudeDebug"
+        android:layout_width="wrap_content"
+        android:textSize="8sp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/apagarConta"
+        android:textColor="#777777"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/latitudeDebug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/desconectarConta"
+        android:textColor="#777777"
+        android:textSize="8sp"
+        android:textStyle="bold" />
+</RelativeLayout>

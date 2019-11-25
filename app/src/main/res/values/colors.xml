@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="corPrincipal">#FFF</color>
+    <color name="corPrimariaEscura">#c6c6c6</color>
+    <color name="azulClaro">#02b4ef</color>
+    <color name="Preto">#000000</color>
+    <color name="textoBotoes">#FFFFFF</color>
+
+</resources>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context=".fragments.MatchFragment">
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/botao_chats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hapticFeedbackEnabled="true"
+        android:src="@drawable/ic_chat"
+        app:backgroundTint="@android:color/white"
+        app:fabSize="mini"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/fotoUsuario1"
+        app:rippleColor="#40F8FF"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hapticFeedbackEnabled="true"
+        android:src="@drawable/ic_chat"
+        app:backgroundTint="@android:color/white"
+        app:fabSize="mini"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_toLeftOf="@+id/botao_chats"
+        android:layout_below="@id/fotoUsuario1"
+        app:rippleColor="#40F8FF"/>
+
+    <Button
+        android:text="Continuar deslizando"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/botaoSair"
+        android:layout_below="@+id/botao_chats"
+        android:background="@drawable/botoes_arredondados"
+        android:textColor="@android:color/white" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:src="@drawable/ic_usuario"
+        android:id="@+id/fotoUsuario1"
+        android:scaleType="centerCrop"
+        android:saveEnabled="true"
+        tools:ignore="ContentDescription"
+        android:layout_below="@id/textView4"
+        android:layout_toRightOf="@+id/fotoUsuario2" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_below="@id/textView4"
+        android:src="@drawable/ic_usuario"
+        android:id="@+id/fotoUsuario2"
+        android:scaleType="centerCrop"
+        android:saveEnabled="true"
+        tools:ignore="ContentDescription" />
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:fontFamily="cursive"
+        android:text="It's a match!"
+        android:textSize="45sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
