@@ -60,7 +60,6 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
         //startActivity(new Intent(this, Intro.class));
         verificaLogin();
         atualizaLocalizacaoRemota();
-        enviaSocket();
         botaoChats = findViewById(R.id.botao_chats);
         botaoMapa = findViewById(R.id.botao_mapa);
         botaoFeed = findViewById(R.id.botao_feed);
@@ -87,10 +86,11 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
         botaoRecarregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                overridePendingTransition(0, 0);
-                startActivity(getIntent());
-                overridePendingTransition(0, 0);
+//                finish();
+//                overridePendingTransition(0, 0);
+//                startActivity(getIntent());
+//                overridePendingTransition(0, 0);
+               inicializa();
             }
         });
 
@@ -164,6 +164,15 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
             JSONObject jSONO = new JSONObject(usuarios);
             jArra = jSONO.getJSONArray("usersValues");
             Log.d("TAMANHO REAL", String.valueOf(jArra.length()));
+            if(jArra.length() > 0) {
+                acabouAviso.setVisibility(View.GONE);
+                acabouDesc.setVisibility(View.GONE);
+                botaoRecarregar.setVisibility(View.GONE);
+                enviaSocket();
+
+                botaoLike.setVisibility(View.VISIBLE);
+                botaoDislike.setVisibility(View.VISIBLE);
+            }
         }catch(Exception e){
             Log.d("USUÁRIOS EXC", e.toString());
         }
