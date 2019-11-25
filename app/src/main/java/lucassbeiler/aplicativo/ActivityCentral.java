@@ -238,6 +238,7 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
         List<Spot> cards = new ArrayList<>();
         try {
             JSONArray jArra = baixaUsuarios();
+            cards.clear();
             Log.d("TAMANHO", String.valueOf(jArra.length()));
             for (int i = 0; i < jArra.length(); i++) {
                 JSONObject jSONO = jArra.getJSONObject(i);
@@ -249,8 +250,8 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
                 JSONObject jSONODistancia = new JSONObject(respostaAPIDistancia);
                 Log.d("JSON IDADE", jSONO.toString());
                 String idade = String.valueOf((System.currentTimeMillis() - jSONO.getLong("birth_timestamp"))/31556952000L);
-                //String idade = String.valueOf((System.currentTimeMillis() - 1006473600000L)/31556952000L);
                 cards.add(new Spot(jSONO.getString("name") + ", " + idade, "a " + jSONODistancia.getString("distancia") + "km daqui", "http://34.95.164.190:3333/uploads/" + jSONO.getString("filename"), jSONO.getString("id")));
+                jArra.remove(i);
             }
         }catch (Exception jex){
             //valorJSON

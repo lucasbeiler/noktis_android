@@ -56,7 +56,7 @@ public class ActivitySplash extends AppCompatActivity {
                 startActivity(new Intent(ActivitySplash.this, ActivityCentral.class));
                 finish();
             }
-        }, 3000);
+        }, 1990);
     }
 
     public void enviaSocket(final Activity act) {
