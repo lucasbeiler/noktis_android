@@ -55,8 +55,8 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        localiza.atualizaLocalizacao(ActivityCentral.this, this);
         setContentView(R.layout.activity_central);
+        localiza.atualizaLocalizacao(ActivityCentral.this, this);
         //startActivity(new Intent(this, Intro.class));
         verificaLogin();
         atualizaLocalizacaoRemota();

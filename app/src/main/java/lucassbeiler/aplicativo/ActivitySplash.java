@@ -1,31 +1,22 @@
 package lucassbeiler.aplicativo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.sdsmdg.tastytoast.TastyToast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import io.socket.client.Ack;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -59,7 +50,7 @@ public class ActivitySplash extends AppCompatActivity {
         }, 1990);
     }
 
-    public void enviaSocket(final Activity act) {
+    public void enviaSocket(final AppCompatActivity act) {
         try {
             sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
             IO.Options opts = new IO.Options();

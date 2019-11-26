@@ -1,14 +1,11 @@
 package lucassbeiler.aplicativo;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -18,6 +15,10 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.github.ybq.android.spinkit.SpinKitView;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;

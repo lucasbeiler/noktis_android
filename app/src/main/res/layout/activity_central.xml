@@ -44,8 +44,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
                         android:hapticFeedbackEnabled="true"
-                        android:src="@drawable/skip_red_24dp"
-                        app:backgroundTint="@android:color/white"
+                        app:srcCompat="@drawable/skip_red_24dp"
+                        app:backgroundTint="#FFFFFF"
                         app:fabSize="auto"
                         app:rippleColor="#22ED7563"/>
 
@@ -63,8 +63,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:hapticFeedbackEnabled="true"
-                        android:src="@drawable/ic_config"
-                        app:backgroundTint="@android:color/white"
+                        app:srcCompat="@drawable/ic_config"
+                        app:backgroundTint="#FFFFFF"
                         app:fabSize="mini"
                         app:rippleColor="#22484849"/>
 
@@ -82,8 +82,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:hapticFeedbackEnabled="true"
-                        android:src="@drawable/ic_perfil_feed"
-                        app:backgroundTint="@android:color/white"
+                        app:srcCompat="@drawable/ic_perfil_feed"
+                        app:backgroundTint="#FFFFFF"
                         app:fabSize="mini"
                         app:rippleColor="#3F51B5"/>
 
@@ -101,8 +101,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:hapticFeedbackEnabled="true"
-                        android:src="@drawable/ic_mapa"
-                        app:backgroundTint="@android:color/white"
+                        app:srcCompat="@drawable/ic_mapa"
+                        app:backgroundTint="#FFFFFF"
                         app:fabSize="mini"
                         app:rippleColor="#FF6C9D"/>
 
@@ -119,8 +119,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:hapticFeedbackEnabled="true"
-                        android:src="@drawable/ic_fogo"
-                        app:backgroundTint="@android:color/white"
+                        app:srcCompat="@drawable/ic_fogo"
+                        app:backgroundTint="#FFFFFF"
                         app:fabSize="mini"
                         app:rippleColor="#FFC107"/>
 
@@ -144,7 +144,7 @@
                         android:layout_alignParentStart="true"
                         android:hapticFeedbackEnabled="true"
                         android:src="@drawable/like_green_24dp"
-                        app:backgroundTint="@android:color/white"
+                        app:backgroundTint="#FFFFFF"
                         app:fabSize="auto"
                         app:rippleColor="#226FE2B3"/>
 
@@ -241,9 +241,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:hapticFeedbackEnabled="true"
-                    android:src="@drawable/ic_recarregar"
+                    app:srcCompat="@drawable/ic_recarregar"
                     android:visibility="gone"
-                    app:backgroundTint="@android:color/white"
+                    app:backgroundTint="#FFFFFF"
                     app:fabSize="mini"
                     app:rippleColor="#0288D1"/>
 
