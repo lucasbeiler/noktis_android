@@ -152,7 +152,7 @@ public class ActivityLogin extends AppCompatActivity {
                         String respostaAPICoords = new FuncoesPOSTJSON().execute("http://34.95.164.190:3333/location/send", fJSON.geraJSON(chavesJSONCoords, valoresJSONCoords).toString(), jSONO.getString("token")).get();
                         if(respostaAPICoords.contains("true")){
                             Log.d("Login", respostaAPILogin);
-                            Log.d("Status", respostaAPIStatus);
+                            Log.d("setStatus LOGIN", respostaAPIStatus);
                             if(ir.equals("config")){
                                 finishAffinity();
                                 startActivity(new Intent(ActivityLogin.this, ActivityEditarPerfil.class));

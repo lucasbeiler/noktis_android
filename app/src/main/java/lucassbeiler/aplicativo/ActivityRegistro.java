@@ -158,7 +158,7 @@ public class ActivityRegistro extends AppCompatActivity implements DatePickerDia
                         String respostaAPICoords = new FuncoesPOSTJSON().execute("http://34.95.164.190:3333/location/send", fJSON.geraJSON(chavesJSONCoords, valoresJSONCoords).toString(), jSONO.getString("token")).get();
                         if(respostaAPICoords.contains("true")){
                             Log.d("Registro", respostaAPIRegistro);
-                            Log.d("Status", respostaAPIStatus);
+                            Log.d("setStatus REGISTRO", respostaAPIStatus);
                             carregaSKV.setVisibility(GONE);
                             startActivity(new Intent(ActivityRegistro.this, ActivityCentral.class));
                             finish();

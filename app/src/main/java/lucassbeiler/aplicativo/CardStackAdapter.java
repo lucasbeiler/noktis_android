@@ -36,7 +36,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         final Spot spot = spots.get(position);
         holder.nome.setText(spot.nome);
         holder.cidade.setText(spot.cidade);
-        Picasso.get().load(spot.urlImagem).into(holder.urlImagem);
+        Picasso.get().load(spot.urlImagem).fit().into(holder.urlImagem);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -103,6 +103,7 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
         setupCardStackView();
         setupButton();
         verificaUsuarios();
+        enviaSocket();
     }
     
     @Override
@@ -125,7 +126,7 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
                enviaLike(id);
             }
         }catch(Exception e){
-            Log.d("ERRO LIKE", e.toString());
+            Log.d("CRASH MATCH", e.toString());
         }
     }
 
@@ -168,7 +169,6 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
                 acabouAviso.setVisibility(View.GONE);
                 acabouDesc.setVisibility(View.GONE);
                 botaoRecarregar.setVisibility(View.GONE);
-                enviaSocket();
 
                 botaoLike.setVisibility(View.VISIBLE);
                 botaoDislike.setVisibility(View.VISIBLE);
@@ -304,7 +304,7 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
         }
         }
 
-    private void enviaSocket() {
+    private void enviaSocket() { // protected
         try {
             sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
             IO.Options opts = new IO.Options();
@@ -313,12 +313,12 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
             opts.query = "token=" + sharp.getString("token", "") + "&user=" + sharp.getString("uid", "");
             socket = IO.socket("http://34.95.164.190:3333/", opts);
         } catch (Exception e) {
-            //
+            Log.d("CRASH MATCH", e.getMessage());
         }
         socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                Log.d("CONECTADO", "CONECTOU");
+                Log.d("CRASH MATCH", "CONECTOU .id(): " + socket.id());
             }
 
         }).on("match", new Emitter.Listener() {
@@ -363,11 +363,15 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
     }
 
     private void carregaTelaMatch(String filenameImagemMatch){
-        MatchFragment matchFragment = new MatchFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("filenameImagem", filenameImagemMatch);
-        matchFragment.setArguments(bundle);
-        matchFragment.show(getSupportFragmentManager(), matchFragment.getClass().getSimpleName());
+        try {
+            MatchFragment matchFragment = new MatchFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("filenameImagem", filenameImagemMatch);
+            matchFragment.setArguments(bundle);
+            matchFragment.show(getSupportFragmentManager(), matchFragment.getClass().getSimpleName()); // possível bug
+        }catch (Exception e){
+            Log.d("CRASH MATCH", e.getMessage());
+        }
     }
 
     private void verificaUsuarios(){
