@@ -1,13 +1,16 @@
-package lucassbeiler.aplicativo;
+package lucassbeiler.aplicativo.UI;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.material.textfield.TextInputLayout;
+import com.sdsmdg.tastytoast.TastyToast;
+
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -23,15 +26,18 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sdsmdg.tastytoast.TastyToast;
-
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import lucassbeiler.aplicativo.utilitarias.CallsAPI;
+import lucassbeiler.aplicativo.R;
 import lucassbeiler.aplicativo.fragments.EscolhaDataFragment;
-import lucassbeiler.aplicativo.requisicoes.FuncoesPOSTJSON;
+import lucassbeiler.aplicativo.models.Registro;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.view.View.GONE;
 
@@ -40,14 +46,13 @@ public class ActivityRegistro extends AppCompatActivity implements DatePickerDia
     private Button botaoRegistrar, botaoDataNascimento;
     private TextView cancelar, dataNascimentoTxt;
     private SharedPreferences sharp;
-    private FuncoesJSON fJSON = new FuncoesJSON();
     private RadioGroup radioGroup;
     private RadioButton radioButton;
-    private SpinKitView carregaSKV;
-    private Localizador localiza = new Localizador();
+    private SpinKitView emblemaLoading;
     private Calendar cal;
     private DatePickerDialog.OnDateSetListener dsl;
     private Long timestampNascimento = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +68,7 @@ public class ActivityRegistro extends AppCompatActivity implements DatePickerDia
         radioGroup = findViewById(R.id.radio_group);
         botaoRegistrar.setTextColor(ContextCompat.getColor(ActivityRegistro.this, R.color.textoBotoes));
         cancelar = findViewById(R.id.cancelar);
-        carregaSKV = findViewById(R.id.barraLoading);
+        emblemaLoading = findViewById(R.id.barraLoading);
         final TextInputLayout txtEmail = findViewById(R.id.layout_entrada_texto);
         final TextInputLayout txtSenha = findViewById(R.id.layout_entrada_texto2);
         final TextInputLayout txtNome = findViewById(R.id.layout_entrada_texto3);
@@ -101,7 +106,7 @@ public class ActivityRegistro extends AppCompatActivity implements DatePickerDia
         botaoRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                carregaSKV.setVisibility(View.VISIBLE);
+                emblemaLoading.setVisibility(View.VISIBLE);
                 int idRadioBt = radioGroup.getCheckedRadioButtonId();
                 radioButton = findViewById(idRadioBt);
                 String email = enderecoEmaill.getText().toString();
@@ -125,48 +130,14 @@ public class ActivityRegistro extends AppCompatActivity implements DatePickerDia
                 } else {
                     txtSenha.setError(null);
                 }
-                sharp = getSharedPreferences("local", Context.MODE_PRIVATE);
-                Double longitude = Double.valueOf(sharp.getString("longitude", "0.0"));
-                Double latitude = Double.valueOf(sharp.getString("latitude", "0.0"));
-
-                String[] chavesJSONRegistro = {"name", "email", "password", "bio", "sex", "birth_timestamp"};
-                String[] valoresJSONRegistro = {nome, email, senha, descricaoPerfil, sexo, timestampNascimento.toString()};
-
-                String[] chavesJSONCoords = {"latitude", "longitude"};
-                String[] valoresJSONCoords = {latitude.toString(), longitude.toString()};
-
-                String[] chavesJSONStatus = {"online"};
-                String[] valoresJSONStatus = {"true"};
 
                 try{
-                    sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
-                    String respostaAPIRegistro = new FuncoesPOSTJSON().execute("http://34.95.164.190:3333/user/create", fJSON.geraJSON(chavesJSONRegistro, valoresJSONRegistro).toString(), "").get();
-                    JSONObject jSONO = new JSONObject(respostaAPIRegistro);
-                    if(jSONO.has("error")){
-                        TastyToast.makeText(getApplicationContext(), jSONO.getString("error"), Toast.LENGTH_SHORT, TastyToast.ERROR);
-                        return;
-                    }else if(jSONO.has("token")){
-                        SharedPreferences.Editor edtr = sharp.edit();
-                        edtr.putString("token", jSONO.getString("token"));
-                        edtr.putString("email", jSONO.getJSONObject("user").getString("email"));
-                        edtr.putString("bio", jSONO.getJSONObject("user").getString("bio"));
-                        edtr.putString("uid", jSONO.getJSONObject("user").getString("id"));
-                        edtr.putString("senha", senha);
-                        edtr.putString("imagemURL", "http://34.95.164.190:3333/uploads/" + jSONO.getJSONObject("user").getString("filename"));
-                        edtr.apply();
-                        String respostaAPIStatus = new FuncoesPOSTJSON().execute("http://34.95.164.190:3333/set/status", fJSON.geraJSON(chavesJSONStatus, valoresJSONStatus).toString(), jSONO.getString("token")).get();
-                        String respostaAPICoords = new FuncoesPOSTJSON().execute("http://34.95.164.190:3333/location/send", fJSON.geraJSON(chavesJSONCoords, valoresJSONCoords).toString(), jSONO.getString("token")).get();
-                        if(respostaAPICoords.contains("true")){
-                            Log.d("Registro", respostaAPIRegistro);
-                            Log.d("setStatus REGISTRO", respostaAPIStatus);
-                            carregaSKV.setVisibility(GONE);
-                            startActivity(new Intent(ActivityRegistro.this, ActivityCentral.class));
-                            finish();
-                        }
-                    }
+                    String celular = Build.MANUFACTURER + " " + Build.MODEL + " (" + Build.DEVICE + ")";
+                    enviaRegistro(new Registro(nome, email, senha, descricaoPerfil, sexo, timestampNascimento.toString(), celular), new CallsAPI());
                 }catch(Exception e){
-                    Log.d("ERRO", e.toString());
+                    Log.d("REGISTRO EXCEPTION", e.getMessage());
                 }
+
             }
         });
     }
@@ -185,5 +156,41 @@ public class ActivityRegistro extends AppCompatActivity implements DatePickerDia
         }catch(Exception ex){
             Log.d("EXCEPTION", ex.getMessage());
         }
+    }
+
+    private void enviaRegistro(final Registro registro, final CallsAPI callsAPI){
+        callsAPI.retrofitBuilder().criaConta(registro).enqueue(new Callback<Registro>() {
+            @Override
+            public void onResponse(Call<Registro> call, Response<Registro> resposta) {
+                if(resposta.isSuccessful()){
+                    if(!resposta.body().getToken().isEmpty()){
+                        sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor edtr = sharp.edit();
+                        edtr.putString("token", resposta.body().getToken());
+                        edtr.putString("email", resposta.body().getUser().getEmail());
+                        edtr.putString("senha", Senhaa.getText().toString());
+                        edtr.putString("bio", resposta.body().getUser().getBio());
+                        edtr.putString("imagemURL", callsAPI.uploadsDir + resposta.body().getUser().getFilename());
+                        edtr.apply();
+                        emblemaLoading.setVisibility(View.GONE);
+                        finishAffinity();
+                        startActivity(new Intent(ActivityRegistro.this, ActivityCentral.class));
+                        finish();
+                    }
+                }else{
+                    emblemaLoading.setVisibility(View.GONE);
+                    try {
+                        TastyToast.makeText(ActivityRegistro.this, new JSONObject(resposta.errorBody().string()).getString("error"), Toast.LENGTH_LONG, TastyToast.ERROR);
+                    }catch (Exception e){
+                        Log.d("REGISTRO EXCEPTION", e.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Registro> call, Throwable t) {
+                Log.d("RESPOSTA", "FALHA");
+            }
+        });
     }
 }

@@ -1,19 +1,22 @@
-package lucassbeiler.aplicativo;
+package lucassbeiler.aplicativo.UI;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
+
+import lucassbeiler.aplicativo.R;
+import lucassbeiler.aplicativo.models.Spot;
 
 public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder> {
 
@@ -36,7 +39,8 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         final Spot spot = spots.get(position);
         holder.nome.setText(spot.nome);
         holder.cidade.setText(spot.cidade);
-        Picasso.get().load(spot.urlImagem).fit().into(holder.urlImagem);
+        Uri uriFotoUsuario = Uri.parse(spot.urlImagem);
+        holder.urlImagem.setImageURI(uriFotoUsuario);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +66,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView nome;
         TextView cidade;
-        ImageView urlImagem;
+        SimpleDraweeView urlImagem;
         ViewHolder(View view) {
             super(view);
             this.nome = view.findViewById(R.id.item_name);

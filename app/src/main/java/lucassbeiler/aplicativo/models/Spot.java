@@ -1,4 +1,4 @@
-package lucassbeiler.aplicativo;
+package lucassbeiler.aplicativo.models;
 
 public class Spot {
     private static int counter = 0;
@@ -7,9 +7,9 @@ public class Spot {
     public String nome;
     public String cidade;
     public String urlImagem;
-    public String usuarioID;
+    public Integer usuarioID;
 
-    public Spot(String nome, String cidade, String urlImagem, String usuarioID) {
+    public Spot(String nome, String cidade, String urlImagem, Integer usuarioID) {
         this.id = counter++;
         this.nome = nome;
         this.cidade = cidade;

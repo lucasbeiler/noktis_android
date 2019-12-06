@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Noktis</string>
     <string name="selecione_data_nascimento">Enter your birthdate</string>
     <string name="as_horas"> a las </string>
     <string name="erro_carregar_imagem">Error loading image</string>

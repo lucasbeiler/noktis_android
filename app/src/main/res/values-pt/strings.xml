@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Noktis</string>
     <string name="selecione_data_nascimento">Informe sua data de nascimento</string>
     <string name="as_horas">às</string>
     <string name="erro_carregar_imagem">Erro ao carregar imagem</string>
