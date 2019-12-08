@@ -6,8 +6,13 @@ import lucassbeiler.aplicativo.models.AlteracaoConta;
 import lucassbeiler.aplicativo.models.EncerramentoConta;
 import lucassbeiler.aplicativo.models.Localizacao;
 import lucassbeiler.aplicativo.models.Login;
+import lucassbeiler.aplicativo.models.OutroUsuario;
+import lucassbeiler.aplicativo.models.Perfis;
+import lucassbeiler.aplicativo.models.Posts;
 import lucassbeiler.aplicativo.models.Reacao;
 import lucassbeiler.aplicativo.models.Registro;
+import lucassbeiler.aplicativo.models.Sessoes;
+import lucassbeiler.aplicativo.models.Usuario;
 import lucassbeiler.aplicativo.models.Usuarios;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -49,7 +54,26 @@ public interface Rotas {
     @GET("/users/online")
     Call<Usuarios> getUsuarios(@Header("Authorization") String token);
 
+    @GET("/user/getinfos")
+    Call<OutroUsuario> atualizaInformacoes(@Header("Authorization") String token);
+
+    @GET("/matches")
+    Call<Usuarios> getMatches(@Header("Authorization") String token);
+
+    @POST("/posts")
+    Call<Posts> baixaPosts(@Body Posts posts, @Header("Authorization") String token);
+
+    @GET("/sessions/list")
+    Call<Sessoes> baixaSessoes(@Header("Authorization") String token);
+
+    @GET("/logout")
+    Call<ResponseBody> encerraSessao(@Header("Authorization") String token);
+
     @Multipart
     @POST("/upload/file")
     Call<ResponseBody> uploadFoto(@Header("Authorization") String token, @Part MultipartBody.Part file);
+
+    @Multipart
+    @POST("/posts/publish")
+    Call<ResponseBody> enviaPost(@Header("Authorization") String token, @Part MultipartBody.Part file, @Part("description") RequestBody description);
 }

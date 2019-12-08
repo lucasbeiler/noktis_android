@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/post_usuario"
+    android:paddingTop="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:id="@+id/card_view_post"
+            android:paddingTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:paddingBottom="5dp"
+                android:layout_height="wrap_content">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:paddingStart="3dp"
+                    android:id="@+id/foto_perfil_usuario"
+                    android:scaleType="centerCrop"
+                    android:saveEnabled="true"
+                    tools:ignore="ContentDescription"
+                    fresco:roundAsCircle="true"/>
+
+                <TextView
+                    android:paddingStart="9dp"
+                    android:layout_toEndOf="@+id/foto_perfil_usuario"
+                    android:id="@+id/nome_usuario_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="#2C2A2A"
+                    android:textSize="16sp"
+                    android:text="Nome"/>
+
+                <TextView
+                    android:paddingStart="9dp"
+                    android:layout_below="@+id/nome_usuario_post"
+                    android:layout_alignStart="@+id/nome_usuario_post"
+                    android:id="@+id/hora_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:textSize="13sp"
+                    android:text="Hora"/>
+
+                <TextView
+                    android:layout_below="@+id/hora_post"
+                    android:paddingStart="3dp"
+                    android:layout_alignStart="@+id/foto_perfil_usuario"
+                    android:paddingTop="22dp"
+                    android:id="@+id/publicacao_usuario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:paddingBottom="6dp"
+                    android:text="Post"/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
+                    android:src="@color/azulClaro"
+                    android:id="@+id/foto_post_usuario"
+                    android:layout_below="@id/publicacao_usuario"
+                    android:visibility="visible"
+                    tools:ignore="ContentDescription"/>
+
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>

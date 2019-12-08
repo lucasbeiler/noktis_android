@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:paddingTop="8dp">
 
@@ -26,5 +27,14 @@
         app:arrowPosition="0dp"
         app:arrowCenter="true"
         app:arrowWidth="0dp"/>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:id="@+id/foto_usuario_mensagem"
+        android:scaleType="centerCrop"
+        android:saveEnabled="true"
+        fresco:roundAsCircle="true"/>
+
 
 </RelativeLayout>

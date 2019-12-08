@@ -20,21 +20,15 @@
 
 package lucassbeiler.aplicativo.UI;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -46,7 +40,7 @@ import java.util.List;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import lucassbeiler.aplicativo.R;
-import lucassbeiler.aplicativo.adapter.MessageAdapter;
+import lucassbeiler.aplicativo.adapter.AdapterMensagem;
 import lucassbeiler.aplicativo.models.Message;
 import lucassbeiler.aplicativo.utilitarias.ClasseApplication;
 
@@ -67,7 +61,7 @@ public class ActivityConversa extends AppCompatActivity{
         mSocket.connect();
 
         final String idMatch = getIntent().getStringExtra("idMatch");
-        mAdapter = new MessageAdapter(this, mMessages);
+        mAdapter = new AdapterMensagem(this, mMessages);
 
 
         mMessagesView = (RecyclerView) findViewById(R.id.messages);
@@ -103,16 +97,6 @@ public class ActivityConversa extends AppCompatActivity{
         mSocket.disconnect();
 
     }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (Activity.RESULT_OK != resultCode) {
-//            getActivity().finish();
-//            return;
-//        }
-//    }
-
 
     private void addMessage(String username, String message) {
         mMessages.add(new Message.Builder(Message.TYPE_MESSAGE)

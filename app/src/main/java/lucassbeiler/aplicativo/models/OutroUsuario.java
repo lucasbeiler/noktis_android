@@ -7,6 +7,7 @@ public class OutroUsuario {
     private int id;
     private Distancia locations;
     private Perfis profiles;
+    private Perfis profile;
 
     public int getId() {
         return id;
@@ -26,6 +27,10 @@ public class OutroUsuario {
 
     public Perfis getProfiles(){
         return profiles;
+    }
+
+    public Perfis getProfile(){
+        return profile;
     }
 
     public void setProfiles(Perfis profiles){

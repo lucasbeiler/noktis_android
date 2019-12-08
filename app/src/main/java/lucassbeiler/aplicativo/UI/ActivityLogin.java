@@ -1,5 +1,6 @@
 package lucassbeiler.aplicativo.UI;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,9 @@ import com.sdsmdg.tastytoast.TastyToast;
 
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -40,6 +44,9 @@ public class ActivityLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        permissao();
+        verificaLogin();
 
         SharedPreferences loginLembrar;
         TextView botaoRegistrar;
@@ -109,7 +116,7 @@ public class ActivityLogin extends AppCompatActivity {
                 }
 
                 barraDeLoading.setVisibility(View.VISIBLE);
-                enviaLogin(new Login(email, senha), new CallsAPI());
+                enviaLogin(new Login(email, senha,  Build.MANUFACTURER + " " + Build.MODEL + " (" + Build.DEVICE + ")"), new CallsAPI());
             }
         });
     }
@@ -124,7 +131,9 @@ public class ActivityLogin extends AppCompatActivity {
                         SharedPreferences.Editor edtr = sharp.edit();
                         edtr.putString("token", resposta.body().getToken());
                         edtr.putString("email", resposta.body().getUser().getEmail());
+                        edtr.putString("nome", resposta.body().getUser().getName());
                         edtr.putString("senha", usuarioSenha.getText().toString());
+                        edtr.putInt("uid", resposta.body().getUser().getId());
                         edtr.putString("bio", resposta.body().getUser().getBio());
                         edtr.putString("imagemURL", callsAPI.uploadsDir + resposta.body().getUser().getFilename());
                         edtr.apply();
@@ -148,5 +157,34 @@ public class ActivityLogin extends AppCompatActivity {
                 Log.d("LOGIN EXCEPTION", t.getMessage());
             }
         });
+    }
+
+    private void verificaLogin(){
+        sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
+        if(!sharp.getString("token", "").isEmpty()){
+            Log.d("TOKEN VAZIO", "TOKEN VAZIO");
+            startActivity(new Intent(ActivityLogin.this, ActivityCentral.class));
+            finish();
+        }
+    }
+    private void permissao(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
+        if(requestCode == 1){
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                verificaLogin();
+            }else{
+                verificaLogin();
+                finishAffinity();
+                System.exit(0);
+                finish();
+            }
+        }
     }
 }

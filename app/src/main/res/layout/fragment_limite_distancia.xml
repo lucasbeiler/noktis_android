@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="16dp"
+    tools:context=".fragments.FragmentLimiteDistancia">
+
+    <Button
+        android:text="Atualizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/botao_salvar"
+        android:layout_below="@+id/limite_atual_distancia"
+        android:background="@drawable/botoes_arredondados"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#000"
+        android:text="Determine um limite de distância"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/limite_atual_distancia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/limite_distancia"
+        android:textColor="#000"
+        android:textSize="11sp"
+        android:textStyle="bold" />
+
+  <com.jem.rubberpicker.RubberSeekBar
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/limite_distancia"
+      android:layout_below="@+id/textView4"
+      app:minValue="0"
+      app:maxValue="300"
+      app:elasticBehavior="cubic"
+      app:dampingRatio="0.3"
+      app:stiffness="300"
+      app:stretchRange="24dp"
+      app:defaultThumbRadius="16dp"
+      app:normalTrackWidth="4dp"
+      app:highlightTrackWidth="8dp"
+      app:normalTrackColor="#AAAAAA"
+      app:highlightTrackColor="#BA1F33"
+      app:highlightDefaultThumbOnTouchColor="#CD5D67"/>
+
+</RelativeLayout>

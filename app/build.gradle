@@ -7,8 +7,8 @@ android {
         applicationId "me.lucassbeiler.noctisx"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 234
-        versionName "0.5.2"
+        versionCode 240
+        versionName "0.6.0"
 
         renderscriptTargetApi 25
         renderscriptSupportModeEnabled true
@@ -39,6 +39,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.preference:preference:1.1.0-rc01'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -73,6 +74,8 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.github.lguipeng:BubbleView:1.0.1'
+    implementation 'com.github.Chrisvin:RubberPicker:v1.1'
+    implementation 'com.michaelmuenzer.android:ScrollableNumberPicker:0.2.2'
 
     testImplementation 'junit:junit:4.12'
 

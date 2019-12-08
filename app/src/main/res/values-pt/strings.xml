@@ -20,13 +20,13 @@
     <string name="altere_os_dados_abaixo_como_quiser">Altere os dados abaixo como desejar!</string>
     <string name="encerrar_conta">Encerrar conta</string>
     <string name="deslogar_conta">Sair da conta</string>
-    <string name="_email"> E-mail</string>
-    <string name="_senha"> Senha</string>
+    <string name="_email">E-mail</string>
+    <string name="_senha">Senha</string>
     <string name="login">Login</string>
     <string name="criar_conta">Criar conta</string>
     <string name="lembrar_login">Lembrar e-mail/senha</string>
     <string name="cancelar_registro">Cancelar registro</string>
     <string name="continuar">Continuar</string>
-    <string name="_escolha_uma_senha"> Escolha uma senha</string>
-    <string name="_digite_seu_email"> Digite o seu e-mail</string>
+    <string name="_escolha_uma_senha">Escolha uma senha</string>
+    <string name="_digite_seu_email">Digite o seu e-mail</string>
 </resources>

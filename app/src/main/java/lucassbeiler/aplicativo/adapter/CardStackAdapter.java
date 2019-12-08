@@ -1,4 +1,4 @@
-package lucassbeiler.aplicativo.UI;
+package lucassbeiler.aplicativo.adapter;
 
 import android.content.Context;
 import android.net.Uri;

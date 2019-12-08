@@ -4,27 +4,19 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Login {
-    @SerializedName("email")
-    @Expose
     private String email;
-    @SerializedName("password")
-    @Expose
     private String password;
-
-    @SerializedName("user")
-    @Expose
     private Usuario user;
+    private String phone;
 
-    @SerializedName("error")
-    @Expose
     private String error;
-
     private String token;
 
-    public Login(String email, String password) {
+    public Login(String email, String password, String phone) {
         super();
         this.email = email;
         this.password = password;
+        this.phone = phone;
     }
 
     public Usuario getUser() {

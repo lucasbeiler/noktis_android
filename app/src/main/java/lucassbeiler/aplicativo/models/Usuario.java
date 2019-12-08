@@ -2,9 +2,14 @@ package lucassbeiler.aplicativo.models;
 
 public class Usuario {
     private Integer id;
+    private String name;
     private String email;
     private String filename;
     private String bio;
+
+    public String getName() {
+        return name;
+    }
 
     public Integer getId() {
         return id;

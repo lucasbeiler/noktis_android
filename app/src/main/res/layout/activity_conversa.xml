@@ -30,6 +30,8 @@
             android:layout_weight="1"
             android:hint="Digite uma mensagem..."
             android:imeActionId="@+id/send"
+            android:paddingStart="2dp"
+            android:background="@drawable/campos_texto_arredondados"
             android:imeActionLabel="Enviar"
             android:imeOptions="actionSend"
             android:inputType="text"

@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -31,16 +32,17 @@ public class ClasseApplication extends Application{
         try{
             SharedPreferences sharp = getApplicationContext().getSharedPreferences("login", Context.MODE_PRIVATE);
             String token = sharp.getString("token", "");
-            String uid = sharp.getString("uid", "");
-            if(!(TextUtils.isEmpty(token) && TextUtils.isEmpty(uid))){
+            int uid = sharp.getInt("uid", 0);
+            if(!TextUtils.isEmpty(token) && uid != 0){
                 IO.Options opts = new IO.Options();
                 opts.forceNew = true;
                 opts.reconnection = true;
-                opts.query = "token=" + sharp.getString("token", "") + "&user=" + sharp.getString("uid", "");
+                opts.query = "token=" + sharp.getString("token", "") + "&user=" + uid;
                 socket = IO.socket(CallsAPI.enderecoServidor, opts);
+                socket.connect();
             }
         }catch(Exception e){
-            throw new RuntimeException(e);
+           Log.d("EXCEPTIONSOCKET", e.getMessage());
         }
     }
 

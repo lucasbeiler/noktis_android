@@ -21,13 +21,32 @@
     <string name="altere_os_dados_abaixo_como_quiser">Change the informations below as you wish to!</string>
     <string name="encerrar_conta">Delete account</string>
     <string name="deslogar_conta">Log out</string>
-    <string name="_email"> E-mail</string>
-    <string name="_senha"> Password</string>
+    <string name="_email">E-mail</string>
+    <string name="_senha">Password</string>
     <string name="login">Login</string>
     <string name="criar_conta">Create account</string>
     <string name="lembrar_login">Remember login</string>
     <string name="cancelar_registro">Cancel</string>
     <string name="continuar">Proceed</string>
-    <string name="_escolha_uma_senha"> Enter a password</string>
-    <string name="_digite_seu_email"> Enter your e-mail</string>
+    <string name="_escolha_uma_senha">Enter a password</string>
+    <string name="_digite_seu_email">Enter your e-mail</string>
+    <string name="title_activity_configuracoes">Configurações</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,9 +15,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
@@ -34,8 +30,11 @@ import java.util.List;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import lucassbeiler.aplicativo.BuildConfig;
+import lucassbeiler.aplicativo.adapter.CardStackAdapter;
+import lucassbeiler.aplicativo.fragments.FragmentConfiguracoes;
 import lucassbeiler.aplicativo.models.Distancia;
 import lucassbeiler.aplicativo.models.Perfis;
+import lucassbeiler.aplicativo.utilitarias.AtualizaUsuario;
 import lucassbeiler.aplicativo.utilitarias.CallsAPI;
 import lucassbeiler.aplicativo.utilitarias.ClasseApplication;
 import lucassbeiler.aplicativo.utilitarias.Localizador;
@@ -64,14 +63,14 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_central);
-        permissao();
         sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
         String token = sharp.getString("token", "");
         ClasseApplication app = (ClasseApplication) getApplication();
         socket = app.getSocket();
-        if(socket != null){
-            socket.connect();
-        }
+
+        AtualizaUsuario atualizaUsuario = new AtualizaUsuario();
+        atualizaUsuario.atualizaDadosUsuario(new CallsAPI(), this);
+
         localiza.atualizaLocalizacao(this, token);
         botaoChats = findViewById(R.id.botao_chats);
         botaoMapa = findViewById(R.id.botao_mapa);
@@ -92,7 +91,7 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
         botaoChats.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                TastyToast.makeText(getApplicationContext(), "Ainda estamos trabalhando no sistema de matches/chats...", Toast.LENGTH_SHORT, TastyToast.DEFAULT);
+                startActivity(new Intent(ActivityCentral.this, ActivityMatches.class));
             }
         });
 
@@ -106,7 +105,7 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
         botaoFeed.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                TastyToast.makeText(getApplicationContext(), "Ainda estamos trabalhando no sistema de feeds/timelines...", Toast.LENGTH_SHORT, TastyToast.DEFAULT);
+                startActivity(new Intent(ActivityCentral.this, ActivityTimelineUsuarioAtual.class));
             }
         });
         setupCardStackView();
@@ -231,7 +230,9 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
         rewind.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(ActivityCentral.this, ActivityEditarPerfil.class));
+                FragmentConfiguracoes fragmentConfiguracoes = new FragmentConfiguracoes();
+                fragmentConfiguracoes.show(getSupportFragmentManager(), fragmentConfiguracoes.getClass().getSimpleName()); // possível bug
+//                startActivity(new Intent(ActivityCentral.this, ActivityConfiguracoes.class));
             }
         });
 
@@ -267,15 +268,6 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
             escutaMatch();
         }
         alimentaCards(new CallsAPI());
-    }
-
-
-    private void verificaLogin(){
-        sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
-        if(sharp.getString("token", "").isEmpty()){
-            startActivity(new Intent(ActivityCentral.this, ActivityLogin.class));
-            finish();
-        }
     }
 
     private void enviaLike(Integer id, CallsAPI callsAPI){
@@ -371,27 +363,6 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
 
             botaoLike.setVisibility(View.VISIBLE);
             botaoDislike.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void permissao(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
-        if(requestCode == 1){
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                verificaLogin();
-            }else{
-                verificaLogin();
-                finishAffinity();
-                System.exit(0);
-                finish();
-            }
         }
     }
 }

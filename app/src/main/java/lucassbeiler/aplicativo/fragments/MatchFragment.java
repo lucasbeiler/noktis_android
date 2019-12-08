@@ -61,7 +61,6 @@ public class MatchFragment extends DialogFragment {
         });
 
         if(getDialog() != null && getDialog().getWindow() != null){
-            getDialog().setCanceledOnTouchOutside(false);
             getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         }
         return view;

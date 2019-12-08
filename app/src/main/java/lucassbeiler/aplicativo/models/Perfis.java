@@ -1,11 +1,15 @@
 package lucassbeiler.aplicativo.models;
 
 public class Perfis{
-    private String name, sex, bio, filename;
+    private String name, sex, bio, filename, email;
     private Integer age;
 
     public String getName(){
         return name;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setName(String name){

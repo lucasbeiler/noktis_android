@@ -1,38 +1,37 @@
 package lucassbeiler.aplicativo.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.github.library.bubbleview.BubbleTextView;
+
 import java.util.List;
 
 import lucassbeiler.aplicativo.R;
 import lucassbeiler.aplicativo.models.Message;
 
 
-public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
+public class AdapterMensagem extends RecyclerView.Adapter<AdapterMensagem.ViewHolder> {
 
     private List<Message> mMessages;
 
-    public MessageAdapter(Context context, List<Message> messages) {
+    public AdapterMensagem(Context context, List<Message> messages) {
         mMessages = messages;
     }
 
     @Override
     @NonNull
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        int layout = -1;
-        layout = R.layout.item_message;
-        View v = LayoutInflater
-                .from(parent.getContext())
-                .inflate(layout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message, parent, false);
         return new ViewHolder(v);
     }
 
@@ -55,13 +54,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mUsernameView;
-        private TextView mMessageView;
+        private BubbleTextView mMessageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-//            mUsernameView = (TextView) itemView.findViewById(R.id.username);
-            mMessageView = (TextView) itemView.findViewById(R.id.message);
+            mMessageView = (BubbleTextView) itemView.findViewById(R.id.message);
         }
 
         public void setUsername(String username) {

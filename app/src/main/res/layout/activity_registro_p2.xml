@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:contxt=".LoginActivity">
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    tools:contxt=".UI.RegistroP2">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,88 +39,101 @@
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="8dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_entrada_texto"
-                    android:layout_width="match_parent"
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/endereco_de_email"
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="16dp"
+                        android:id="@+id/imagem_registro"
+                        android:scaleType="centerCrop"
+                        android:saveEnabled="true"
+                        android:layout_centerHorizontal="true"
+                        tools:ignore="ContentDescription"
+                        fresco:roundAsCircle="true"/>
+
+                    <com.jem.rubberpicker.RubberRangePicker
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/campos_texto_arredondados"
-                        app:drawableStartCompat="@drawable/ic_email"
-                        android:hint="@string/_digite_seu_email"
-                        android:inputType="textEmailAddress"
-                        app:errorEnabled="true" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:id="@+id/range_idade"
+                        android:layout_below="@+id/limite_distancia"
+                        app:minValue="18"
+                        app:maxValue="60"
+                        app:elasticBehavior="cubic"
+                        app:dampingRatio="0.4"
+                        app:stiffness="400"
+                        app:stretchRange="36dp"
+                        app:defaultThumbRadius="16dp"
+                        app:normalTrackWidth="4dp"
+                        app:highlightTrackWidth="8dp"
+                        app:normalTrackColor="#AAAAAA"
+                        app:highlightTrackColor="#BA1F33"
+                        app:highlightDefaultThumbOnTouchColor="#CD5D67"/>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_entrada_texto2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/senha_login"
+                    <TextView
+                        android:id="@+id/range_atual_idade"
+                        android:layout_below="@+id/range_idade"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="#000"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+
+                    <com.jem.rubberpicker.RubberSeekBar
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:focusableInTouchMode="true"
-                        android:background="@drawable/campos_texto_arredondados"
-                        app:drawableStartCompat="@drawable/ic_chave"
-                        android:hint="@string/_escolha_uma_senha"
-                        android:inputType="textPassword|textNoSuggestions"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        app:errorEnabled="true" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:id="@+id/limite_distancia"
+                        android:layout_below="@+id/imagem_registro"
+                        app:minValue="0"
+                        app:maxValue="300"
+                        app:elasticBehavior="cubic"
+                        app:dampingRatio="0.3"
+                        app:stiffness="300"
+                        app:stretchRange="24dp"
+                        app:defaultThumbRadius="16dp"
+                        app:normalTrackWidth="4dp"
+                        app:highlightTrackWidth="8dp"
+                        app:normalTrackColor="#AAAAAA"
+                        app:highlightTrackColor="#BA1F33"
+                        app:highlightDefaultThumbOnTouchColor="#CD5D67"/>
+                <TextView
+                    android:id="@+id/limite_atual_distancia"
+                    android:layout_below="@+id/limite_distancia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="30dp"
+                    android:textColor="#000"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_entrada_texto3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/nome_registro"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:focusableInTouchMode="true"
-                        android:background="@drawable/campos_texto_arredondados"
-                        app:drawableStartCompat="@drawable/ic_usuario"
-                        android:hint="@string/digite_nome"
-                        android:inputType="textPersonName"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        app:errorEnabled="true" />
-                </com.google.android.material.textfield.TextInputLayout>
-
+                </RelativeLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_entrada_texto4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/descricao_registro"
+                        android:id="@+id/cidade_registro2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:focusableInTouchMode="true"
                         android:background="@drawable/campos_texto_arredondados"
                         app:drawableStartCompat="@drawable/ic_descricao"
-                        android:hint="Descreva-se"
+                        android:hint="Informe sua cidade"
+                        android:drawablePadding="2dp"
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
                         app:errorEnabled="true" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
-                    android:id="@+id/dataNascimentoBt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:drawableStartCompat="@drawable/ic_calendario"
-                    android:text="@string/selecione_data_nascimento" />
 
                 <TextView
                     android:id="@+id/dataNascimentoTxt"
@@ -131,21 +145,6 @@
                     android:visibility="gone"
                     app:drawableEndCompat="@drawable/ic_editar"
                     android:layout_gravity="center"/>
-
-                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/radio_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:orientation="horizontal">
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Masculino"/>
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Feminino"/>
-                </RadioGroup>
 
                 <Button
                     android:id="@+id/registrar"

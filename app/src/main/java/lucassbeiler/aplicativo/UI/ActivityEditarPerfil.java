@@ -179,9 +179,9 @@ public class ActivityEditarPerfil extends AppCompatActivity{
             botaoFinalizar.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
-                    AlteracaoConta alteracaoConta = new AlteracaoConta(editarEmail.getText().toString(), editarSenha.getText().toString(),
-                            editarSenha2.getText().toString(), editarSenhaAntiga.getText().toString(), definirNome.getText().toString());
-                    alteraConta(alteracaoConta, new CallsAPI());
+//                    AlteracaoConta alteracaoConta = new AlteracaoConta(editarEmail.getText().toString(), editarSenha.getText().toString(),
+//                            editarSenha2.getText().toString(), editarSenhaAntiga.getText().toString(), definirNome.getText().toString());
+//                    alteraConta(alteracaoConta, new CallsAPI());
                 }
             });
         }catch(NullPointerException e){

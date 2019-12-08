@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="16dp"
+    tools:context=".fragments.FragmentEditarBio">
+
+    <Button
+        android:text="Atualizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/botao_salvar_bio"
+        android:layout_below="@+id/nova_bio"
+        android:background="@drawable/botoes_arredondados"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#000"
+        android:text="Edite a descrição do seu perfil"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/campos_texto_arredondados"
+        android:hint="Digite sua nova bio..."
+        android:id="@+id/nova_bio"
+        android:layout_below="@+id/textView4"/>
+
+</RelativeLayout>

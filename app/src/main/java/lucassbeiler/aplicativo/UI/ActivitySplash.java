@@ -50,7 +50,7 @@ public class ActivitySplash extends AppCompatActivity{
         new Timer().schedule(new TimerTask(){
             @Override
             public void run(){
-                startActivity(new Intent(ActivitySplash.this, ActivityCentral.class));
+                startActivity(new Intent(ActivitySplash.this, ActivityLogin.class));
                 finish();
             }
         }, 1992);

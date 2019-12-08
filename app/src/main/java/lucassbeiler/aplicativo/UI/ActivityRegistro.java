@@ -80,7 +80,7 @@ public class ActivityRegistro extends AppCompatActivity implements DatePickerDia
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ActivityRegistro.this, ActivityCentral.class));
+                startActivity(new Intent(ActivityRegistro.this, ActivityLogin.class));
                 finish();
             }
         });
@@ -167,6 +167,8 @@ public class ActivityRegistro extends AppCompatActivity implements DatePickerDia
                         sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
                         SharedPreferences.Editor edtr = sharp.edit();
                         edtr.putString("token", resposta.body().getToken());
+                        edtr.putInt("uid", resposta.body().getUser().getId());
+                        edtr.putString("nome", resposta.body().getUser().getName());
                         edtr.putString("email", resposta.body().getUser().getEmail());
                         edtr.putString("senha", Senhaa.getText().toString());
                         edtr.putString("bio", resposta.body().getUser().getBio());

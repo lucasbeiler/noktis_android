@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="16dp"
+    tools:context=".fragments.FragmentConfiguracoes">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:textSize="24sp"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:id="@+id/titulo_configuracoes"
+        android:layout_centerInParent="true"
+        android:text="Configurações"
+        android:paddingBottom="16dp"
+        android:layout_alignParentTop="true"/>
+    <Button
+        android:text="Alterar e-mail"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/titulo_configuracoes"
+        android:layout_height="wrap_content"
+        android:id="@+id/botao_alterar_email"
+        android:background="@drawable/botoes_arredondados"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:text="Alterar senha"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/botao_alterar_email"
+        android:layout_height="wrap_content"
+        android:id="@+id/botao_alterar_senha"
+        android:background="@drawable/botoes_arredondados"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:text="Definir range de idade"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/botao_alterar_senha"
+        android:layout_height="wrap_content"
+        android:id="@+id/botao_definir_range_idade"
+        android:background="@drawable/botoes_arredondados"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:text="Definir limite de distância"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/botao_definir_range_idade"
+        android:layout_height="wrap_content"
+        android:id="@+id/botao_definir_distancia_maxima"
+        android:background="@drawable/botoes_arredondados"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:text="Sessões ativas"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/botao_definir_distancia_maxima"
+        android:layout_height="wrap_content"
+        android:id="@+id/botao_sessoes_ativas"
+        android:background="@drawable/botoes_arredondados"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>
