@@ -207,7 +207,7 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
                         OutroUsuario usuario = response.body().getUserFilter().get(i);
                         Perfis perfil = usuario.getProfiles();
                         Distancia distancia = usuario.getLocations();
-                        cards.add(new Spot(perfil.getName() + ", " + perfil.getAge(), "a " + distancia.getDistance() + "km daqui", CallsAPI.uploadsDir + perfil.getFilename(), usuario.getId(), perfil.getBio()));
+                        cards.add(new Spot(perfil.getName() + ", " + perfil.getAge(), "a " + distancia.getDistance() + "km daqui", CallsAPI.uploadsDir + perfil.getFilename(), usuario.getId(), perfil.getBio(), usuario.getLocations().getAddress()));
                     }if(cards.size() > 0){
                         adapter = new AdapterCards(ActivityCentral.this, cards);
                         csvw.setAdapter(adapter);

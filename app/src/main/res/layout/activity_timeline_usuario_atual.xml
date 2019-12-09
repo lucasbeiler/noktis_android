@@ -75,12 +75,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Itajaí"
-                android:drawableStart="@drawable/ic_mapa"
+                app:drawableStartCompat="@drawable/ic_mapa"
                 android:id="@+id/cidade_detalhes"
                 android:textSize="12sp"
                 android:paddingBottom="14dp"/>
             <TextView
-                android:drawableStart="@drawable/ic_user"
+                app:drawableStartCompat="@drawable/ic_user"
                 android:layout_below="@+id/cidade_detalhes"
                 android:layout_width="wrap_content"
                 android:layout_centerHorizontal="true"

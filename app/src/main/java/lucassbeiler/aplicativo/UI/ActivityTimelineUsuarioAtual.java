@@ -64,6 +64,7 @@ public class ActivityTimelineUsuarioAtual extends AppCompatActivity{
         String urlImagemUsuario = getIntent().getStringExtra("urlImagemUsuario");
         String token = getIntent().getStringExtra("token");
         String bio = getIntent().getStringExtra("bioUsuario");
+        String cidade = getIntent().getStringExtra("cidadeUsuario");
 
         fotoFeedUsuario = findViewById(R.id.foto_feed_usuario);
         feedTopo = findViewById(R.id.card_view_feed_topo);
@@ -134,6 +135,11 @@ public class ActivityTimelineUsuarioAtual extends AppCompatActivity{
             editarPerfil.setVisibility(View.GONE);
         }
         bioFeedUsuario.setText(bio);
+        if(cidade != null && !cidade.isEmpty()){
+            cidadeFeedUsuario.setText(cidade);
+        }else{
+            cidadeFeedUsuario.setVisibility(View.GONE);
+        }
         baixaPosts(new CallsAPI(), idUsuario);
     }
 

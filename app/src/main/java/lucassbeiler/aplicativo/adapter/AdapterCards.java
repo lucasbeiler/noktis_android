@@ -41,7 +41,7 @@ public class AdapterCards extends RecyclerView.Adapter<AdapterCards.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Spot spot = spots.get(position);
         holder.nome.setText(spot.nome);
-        holder.cidade.setText(spot.cidade);
+        holder.distancia.setText(spot.distancia);
         Uri uriFotoUsuario = Uri.parse(spot.urlImagem);
         holder.urlImagem.setImageURI(uriFotoUsuario);
 
@@ -53,7 +53,8 @@ public class AdapterCards extends RecyclerView.Adapter<AdapterCards.ViewHolder> 
                         .putExtra("idUsuario", spot.usuarioID.toString())
                         .putExtra("nomeUsuario", spot.nome)
                         .putExtra("urlImagemUsuario", spot.urlImagem)
-                        .putExtra("bioUsuario", spot.bio));
+                        .putExtra("bioUsuario", spot.bio)
+                        .putExtra("cidadeUsuario", spot.cidade));
                 //putExtra("EXTRA_SESSION_ID", sessionId);
             }
         });
@@ -74,12 +75,12 @@ public class AdapterCards extends RecyclerView.Adapter<AdapterCards.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView nome;
-        TextView cidade;
+        TextView distancia;
         SimpleDraweeView urlImagem;
         ViewHolder(View view) {
             super(view);
             this.nome = view.findViewById(R.id.item_name);
-            this.cidade = view.findViewById(R.id.item_city);
+            this.distancia = view.findViewById(R.id.item_city);
             this.urlImagem = view.findViewById(R.id.item_image);
         }
     }

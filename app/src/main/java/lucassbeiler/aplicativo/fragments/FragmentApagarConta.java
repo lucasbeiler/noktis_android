@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
 
 import com.sdsmdg.tastytoast.TastyToast;
@@ -30,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentApagarConta extends DialogFragment {
+public class FragmentApagarConta extends AppCompatDialogFragment{
     private Socket socket;
     @Nullable
     @Override

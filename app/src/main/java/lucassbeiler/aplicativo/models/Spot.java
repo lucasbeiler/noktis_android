@@ -5,17 +5,19 @@ public class Spot {
 
     public long id;
     public String nome;
-    public String cidade;
+    public String distancia;
     public String urlImagem;
     public Integer usuarioID;
     public String bio;
+    public String cidade;
 
-    public Spot(String nome, String cidade, String urlImagem, Integer usuarioID, String bio) {
+    public Spot(String nome, String distancia, String urlImagem, Integer usuarioID, String bio, String cidade) {
         this.id = counter++;
         this.nome = nome;
-        this.cidade = cidade;
+        this.distancia = distancia;
         this.urlImagem = urlImagem;
         this.usuarioID = usuarioID;
         this.bio = bio;
+        this.cidade = cidade;
     }
 }
