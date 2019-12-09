@@ -10,11 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.sdsmdg.tastytoast.TastyToast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -67,13 +69,14 @@ public class AdapterMatches extends RecyclerView.Adapter<AdapterMatches.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         SimpleDraweeView fotoMatchView;
-        TextView nomeMatchView;
+        TextView nomeMatchView, avisoNenhumMatch;
         RelativeLayout listMatchesView;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
 
             fotoMatchView = itemView.findViewById(R.id.foto_match);
+            avisoNenhumMatch = itemView.findViewById(R.id.aviso_nenhum_match);
             nomeMatchView = itemView.findViewById(R.id.nome_match);
             listMatchesView = itemView.findViewById(R.id.lista_matches);
         }

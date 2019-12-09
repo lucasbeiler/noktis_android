@@ -23,21 +23,38 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Localizador extends AppCompatActivity {
+    private AirLocation airLocation;
 
-    public void atualizaLocalizacao(Context context, final String token){
-        FusedLocationProviderClient flpc;
-        flpc = LocationServices.getFusedLocationProviderClient(context);
-        flpc.getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>(){
-                    @Override
-                    public void onSuccess(Location location){
-                        if(location != null){
-                            atualizaLocalizacaoRemota(new CallsAPI(), location.getLatitude(), location.getLongitude(), token);
-                            Log.d("LOCALIZACAOGOOGLE", "LATE " + location.getLatitude());
-                        }
+    public void atualizaLocalizacao(AppCompatActivity act, final Context context, final String token) {
+        airLocation = new AirLocation(act, false, true, new AirLocation.Callbacks() {
+            @Override
+            public void onSuccess(@NotNull Location localizacao) {
+                try {
+                    SharedPreferences sharp = context.getSharedPreferences("local", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor edtr = sharp.edit();
+                    edtr.putString("latitude", Double.toString(localizacao.getLatitude()));
+                    edtr.putString("longitude", Double.toString(localizacao.getLongitude()));
+                    edtr.apply();
+                    atualizaLocalizacaoRemota(new CallsAPI(), localizacao.getLatitude(), localizacao.getLongitude(), token);
+                } catch (Exception e) {
+                    SharedPreferences sharp = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+                    if(!sharp.getString("token", "").isEmpty()) {
+                        TastyToast.makeText(context, "Exceção ao detectar localização!", Toast.LENGTH_SHORT, TastyToast.ERROR);
                     }
-                });
+                }
+            }
+
+            @Override
+            public void onFailed(@NotNull AirLocation.LocationFailedEnum locationFailedEnum) {
+                SharedPreferences sharp = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+                if(!sharp.getString("token", "").isEmpty()) {
+                    TastyToast.makeText(context, "Erro ao detectar localização!", Toast.LENGTH_SHORT, TastyToast.ERROR);
+                }
+            }
+        });
     }
+
+
 
     private void atualizaLocalizacaoRemota(CallsAPI callsAPI, Double latitude, Double longitude, String token){
         Localizacao localizacao = new Localizacao(latitude, longitude);

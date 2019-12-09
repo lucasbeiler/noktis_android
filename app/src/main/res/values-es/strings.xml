@@ -2,24 +2,11 @@
 <resources>
     <string name="selecione_data_nascimento">Enter your birthdate</string>
     <string name="as_horas"> a las </string>
-    <string name="erro_carregar_imagem">Error loading image</string>
     <string name="digite_nome">Escriba su nombre</string>
-    <string name="nao_possivel_detectar_localizacao_titulo">No se pudo detectar la ubicación!</string>
     <string name="erro_email_vazio">El e-mail no se puede dejar en blanco</string>
     <string name="erro_senha_vazia">La contraseña no se puede dejar en blanco</string>
     <string name="digite_email">Introduzca su e-mail!</string>
     <string name="digite_senha">Introduzca su contraseña!</string>
-    <string name="concluir">Hecho</string>
-    <string name="digite_seu_nome">Introduzca su nombre</string>
-    <string name="digite_o_novo_email">Introduzca el nuevo e-mail</string>
-    <string name="sua_senha_">Su contraseña </string>
-    <string name="digite_a_nova_senha">Introduzca la nueva contraseña</string>
-    <string name="confirme_a_nova_senha">Confirme la nueva contraseña</string>
-    <string name="digite_a_senha_atual">Introduzca tu contraseña</string>
-    <string name="personalize_a_sua_conta">Personaliza tu cuenta</string>
-    <string name="altere_os_dados_abaixo_como_quiser">¡Cambie los datos abajo como desées!</string>
-    <string name="encerrar_conta">Terminar cuenta</string>
-    <string name="deslogar_conta">Cerrar sessión</string>
     <string name="_email">E-mail</string>
     <string name="_senha">Contraseña</string>
     <string name="login">Login</string>

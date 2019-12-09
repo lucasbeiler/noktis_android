@@ -21,9 +21,7 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
-        <activity android:name=".UI.ActivityRegistroP2"></activity>
         <activity android:name=".UI.ActivityTimelineUsuarioAtual" />
-        <activity android:name=".UI.ActivityFeed" />
         <activity android:name=".UI.ActivityMatches" />
         <activity
             android:name=".UI.ActivitySplash"
@@ -63,7 +61,6 @@
 
         <activity android:name=".UI.ActivityLogin" />
         <activity android:name=".UI.ActivityRegistro" />
-        <activity android:name=".UI.ActivityEditarPerfil" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

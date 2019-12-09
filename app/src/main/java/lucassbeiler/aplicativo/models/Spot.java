@@ -8,12 +8,14 @@ public class Spot {
     public String cidade;
     public String urlImagem;
     public Integer usuarioID;
+    public String bio;
 
-    public Spot(String nome, String cidade, String urlImagem, Integer usuarioID) {
+    public Spot(String nome, String cidade, String urlImagem, Integer usuarioID, String bio) {
         this.id = counter++;
         this.nome = nome;
         this.cidade = cidade;
         this.urlImagem = urlImagem;
         this.usuarioID = usuarioID;
+        this.bio = bio;
     }
 }

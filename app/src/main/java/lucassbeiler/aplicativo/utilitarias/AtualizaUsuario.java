@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.sdsmdg.tastytoast.TastyToast;
@@ -27,6 +28,9 @@ public class AtualizaUsuario {
                     SharedPreferences.Editor edtr = sharp.edit();
                     edtr.putString("email", response.body().getProfile().getEmail());
                     edtr.putString("bio", response.body().getProfile().getBio());
+                    edtr.putInt("idadeMin", response.body().getProfile().getAge_range()[0]);
+                    edtr.putInt("idadeMax", response.body().getProfile().getAge_range()[1]);
+                    edtr.putInt("distanciaMax", response.body().getProfile().getMax_distance());
                     edtr.putString("imagemURL", CallsAPI.uploadsDir + response.body().getProfile().getFilename());
                     edtr.apply();
                 }

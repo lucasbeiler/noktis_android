@@ -38,7 +38,7 @@ public class ActivitySplash extends AppCompatActivity{
         setContentView(R.layout.activity_splash);
         Fresco.initialize(this);
         SharedPreferences sharp = getSharedPreferences("login", MODE_PRIVATE);
-        localiza.atualizaLocalizacao(this, sharp.getString("token", ""));
+        localiza.atualizaLocalizacao(ActivitySplash.this, this, sharp.getString("token", ""));
 
         SimpleDateFormat dataCompilacao = new SimpleDateFormat("EEEE, dd/MM/yyyy '" + getString(R.string.as_horas) + "' kk:mm:ss");
         nomeApp = findViewById(R.id.nome_app);

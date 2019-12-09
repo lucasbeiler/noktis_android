@@ -9,6 +9,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -27,10 +30,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ActivityMatches extends AppCompatActivity{
+    private TextView nenhumMatchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matches);
+        nenhumMatchView = findViewById(R.id.aviso_nenhum_match);
         baixaMatches(new CallsAPI());
     }
 
@@ -45,6 +51,9 @@ public class ActivityMatches extends AppCompatActivity{
                     RecyclerView recyclerView = findViewById(R.id.recycler_view);
                     AdapterMatches adapter = new AdapterMatches(response.body(), getApplicationContext());
                     recyclerView.setAdapter(adapter);
+                    if(adapter.getItemCount() < 1){
+                        nenhumMatchView.setVisibility(View.VISIBLE);
+                    }
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 }else{
                     try{
@@ -61,9 +70,5 @@ public class ActivityMatches extends AppCompatActivity{
             }
 
         });
-    }
-
-    private void chamaRecyclerView(){
-        RecyclerView rv = findViewById(R.id.recycler_view);
     }
 }

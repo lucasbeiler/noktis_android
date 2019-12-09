@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="16dp"
+    tools:context=".fragments.FragmentEditarPerfilMenu">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:textSize="24sp"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:id="@+id/titulo_menu"
+        android:layout_centerInParent="true"
+        android:text="Conta"
+        android:paddingBottom="16dp"
+        android:layout_alignParentTop="true"/>
+    <Button
+        android:text="Editar bio"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/titulo_menu"
+        android:layout_height="wrap_content"
+        android:id="@+id/botao_editar_bio"
+        android:background="@drawable/botoes_arredondados"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:text="Encerrar conta"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/botao_editar_bio"
+        android:layout_height="wrap_content"
+        android:id="@+id/botao_apagar_conta"
+        android:background="@drawable/botoes_arredondados"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:text="Sair da conta"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/botao_apagar_conta"
+        android:layout_height="wrap_content"
+        android:id="@+id/botao_sair_conta"
+        android:background="@drawable/botoes_arredondados"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

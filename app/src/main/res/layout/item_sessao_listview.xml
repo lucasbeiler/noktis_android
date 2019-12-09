@@ -11,7 +11,6 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:id="@+id/card_view_post"
         android:paddingTop="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
@@ -33,17 +32,20 @@
                 android:paddingBottom="15dp"
                 android:text="Nome"/>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <TextView
                 android:id="@+id/encerrar_sessao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:hapticFeedbackEnabled="true"
-                app:srcCompat="@android:drawable/ic_delete"
-                app:backgroundTint="#FFFFFF"
-                app:fabSize="mini"
-                app:rippleColor="#22484849"/>
+                android:paddingEnd="2dp"
+                android:paddingTop="2dp"
+                android:text="Encerrar"
+                android:textColor="#FF0000"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textAllCaps="true"
+                />
 
             <TextView
                 android:layout_toEndOf="@+id/foto_post_usuario"

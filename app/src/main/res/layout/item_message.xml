@@ -31,7 +31,6 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:id="@+id/foto_usuario_mensagem"
         android:scaleType="centerCrop"
         android:saveEnabled="true"
         fresco:roundAsCircle="true"/>

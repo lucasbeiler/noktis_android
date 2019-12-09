@@ -1,7 +1,9 @@
 package lucassbeiler.aplicativo.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +18,15 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.List;
 
 import lucassbeiler.aplicativo.R;
+import lucassbeiler.aplicativo.UI.ActivityCentral;
+import lucassbeiler.aplicativo.UI.ActivityTimelineUsuarioAtual;
 import lucassbeiler.aplicativo.models.Spot;
 
-public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder> {
-
+public class AdapterCards extends RecyclerView.Adapter<AdapterCards.ViewHolder> {
     private LayoutInflater inflater;
     private List<Spot> spots;
 
-    public CardStackAdapter(Context context, List<Spot> spots) {
+    public AdapterCards(Context context, List<Spot> spots) {
         this.inflater = LayoutInflater.from(context);
         this.spots = spots;
     }
@@ -45,7 +48,13 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), spot.nome, Toast.LENGTH_SHORT).show();
+                Log.d("idUsuario", spot.usuarioID.toString());
+                v.getContext().startActivity(new Intent(v.getContext(), ActivityTimelineUsuarioAtual.class)
+                        .putExtra("idUsuario", spot.usuarioID.toString())
+                        .putExtra("nomeUsuario", spot.nome)
+                        .putExtra("urlImagemUsuario", spot.urlImagem)
+                        .putExtra("bioUsuario", spot.bio));
+                //putExtra("EXTRA_SESSION_ID", sessionId);
             }
         });
     }

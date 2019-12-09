@@ -39,7 +39,6 @@ public class ClasseApplication extends Application{
                 opts.reconnection = true;
                 opts.query = "token=" + sharp.getString("token", "") + "&user=" + uid;
                 socket = IO.socket(CallsAPI.enderecoServidor, opts);
-                socket.connect();
             }
         }catch(Exception e){
            Log.d("EXCEPTIONSOCKET", e.getMessage());

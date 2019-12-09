@@ -8,10 +8,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:id="@+id/card_view_post"
             android:paddingTop="20dp"
+            android:id="@+id/card_postagem"
             android:layout_marginBottom="5dp"
             android:layout_height="wrap_content">
 
@@ -73,10 +74,8 @@
                     android:src="@color/azulClaro"
                     android:id="@+id/foto_post_usuario"
                     android:layout_below="@id/publicacao_usuario"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     tools:ignore="ContentDescription"/>
-
-
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

@@ -3,17 +3,12 @@ package lucassbeiler.aplicativo.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.CallLog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,9 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.jem.rubberpicker.RubberRangePicker;
 import com.jem.rubberpicker.RubberSeekBar;
 import com.sdsmdg.tastytoast.TastyToast;
 
@@ -32,10 +24,8 @@ import org.json.JSONObject;
 
 import lucassbeiler.aplicativo.R;
 import lucassbeiler.aplicativo.UI.ActivityCentral;
-import lucassbeiler.aplicativo.UI.ActivityConversa;
-import lucassbeiler.aplicativo.UI.ActivityEditarPerfil;
-import lucassbeiler.aplicativo.UI.ActivityMatches;
 import lucassbeiler.aplicativo.models.AlteracaoConta;
+import lucassbeiler.aplicativo.utilitarias.AtualizaUsuario;
 import lucassbeiler.aplicativo.utilitarias.CallsAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,7 +36,8 @@ public class FragmentLimiteDistancia extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_limite_distancia, container, false);
-
+        AtualizaUsuario atualizaUsuario = new AtualizaUsuario();
+        atualizaUsuario.atualizaDadosUsuario(new CallsAPI(), getContext());
         if(getDialog() != null){
             getDialog().setCancelable(true);
             getDialog().setCanceledOnTouchOutside(true);
@@ -58,9 +49,10 @@ public class FragmentLimiteDistancia extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         Button botaoSalvar;
-
+        SharedPreferences sharp = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
         final RubberSeekBar limiteDistanciaView = view.findViewById(R.id.limite_distancia);
         botaoSalvar = view.findViewById(R.id.botao_salvar);
+        limiteDistanciaView.setCurrentValue(sharp.getInt("distanciaMax", 50));
         final TextView limiteDistanciaAtualTextView = view.findViewById(R.id.limite_atual_distancia);
         limiteDistanciaAtualTextView.setText("Limite atual: " + limiteDistanciaView.getCurrentValue() + "km");
 

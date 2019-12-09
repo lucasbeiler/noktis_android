@@ -1,11 +1,8 @@
 package lucassbeiler.aplicativo.UI;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,7 +27,7 @@ import java.util.List;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import lucassbeiler.aplicativo.BuildConfig;
-import lucassbeiler.aplicativo.adapter.CardStackAdapter;
+import lucassbeiler.aplicativo.adapter.AdapterCards;
 import lucassbeiler.aplicativo.fragments.FragmentConfiguracoes;
 import lucassbeiler.aplicativo.models.Distancia;
 import lucassbeiler.aplicativo.models.Perfis;
@@ -44,6 +41,7 @@ import lucassbeiler.aplicativo.models.OutroUsuario;
 import lucassbeiler.aplicativo.models.Reacao;
 import lucassbeiler.aplicativo.models.Spot;
 import lucassbeiler.aplicativo.models.Usuarios;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,12 +50,12 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
     private DrawerLayout drawerLayout;
     private CardStackLayoutManager manager;
     private TextView acabouAviso, acabouDesc;
-    private CardStackAdapter adapter;
+    private AdapterCards adapter;
     private CardStackView csvw;
     private SharedPreferences sharp;
     private Localizador localiza = new Localizador();
     private Socket socket;
-    private FloatingActionButton botaoChats, botaoMapa, botaoFeed, botaoRecarregar, botaoLike, botaoDislike;
+    private FloatingActionButton botaoChats, botaoFeed, botaoRecarregar, botaoLike, botaoDislike;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -68,12 +66,15 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
         ClasseApplication app = (ClasseApplication) getApplication();
         socket = app.getSocket();
 
+        if(!socket.connected()){
+            socket.connect();
+        }
+
         AtualizaUsuario atualizaUsuario = new AtualizaUsuario();
         atualizaUsuario.atualizaDadosUsuario(new CallsAPI(), this);
 
-        localiza.atualizaLocalizacao(this, token);
+        localiza.atualizaLocalizacao(ActivityCentral.this, this, token);
         botaoChats = findViewById(R.id.botao_chats);
-        botaoMapa = findViewById(R.id.botao_mapa);
         botaoFeed = findViewById(R.id.botao_feed);
         acabouAviso = findViewById(R.id.acabouAviso);
         acabouDesc = findViewById(R.id.acabouDesc);
@@ -81,12 +82,42 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
         botaoLike = findViewById(R.id.like_button);
         botaoDislike = findViewById(R.id.skip_button);
 
-        botaoMapa.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                TastyToast.makeText(getApplicationContext(), "Mapa indisponível nessa versão (" + BuildConfig.VERSION_NAME + "-" + BuildConfig.BUILD_TYPE + "-" + BuildConfig.VERSION_CODE + ")", Toast.LENGTH_SHORT, TastyToast.DEFAULT);
-            }
-        });
+//        botaoSairConta.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view){
+//                final SharedPreferences sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
+//                CallsAPI callsAPI = new CallsAPI();
+//                callsAPI.retrofitBuilder().encerraSessao("Bearer " + sharp.getString("token", "")).enqueue(new Callback<ResponseBody>(){
+//                    @Override
+//                    public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> resposta){
+//                        if(resposta.isSuccessful()){
+//                            ClasseApplication app = (ClasseApplication) getApplication();
+//                            socket = app.getSocket();
+//                            socket.disconnect();
+//                            socket = app.anulaSocket();
+//                            SharedPreferences.Editor edtr = sharp.edit();
+//                            edtr.clear();
+//                            edtr.apply();
+//                            finishAffinity();
+//                            startActivity(new Intent(ActivityCentral.this, ActivityLogin.class));
+//                            finish();
+//                            TastyToast.makeText(ActivityCentral.this, "Logout executado com sucesso!", Toast.LENGTH_LONG, TastyToast.SUCCESS);
+//                        }else{
+//                            try{
+//                                TastyToast.makeText(ActivityCentral.this, new JSONObject(resposta.errorBody().string()).getString("error"), Toast.LENGTH_LONG, TastyToast.ERROR);
+//                            }catch(Exception e){
+//                                Log.d("EDITACONTA EXCEPTION", e.getMessage());
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<ResponseBody> call, Throwable t){
+//                        Log.d("EDITACONTA EXCEPTION2", t.getMessage());
+//                    }
+//                });
+//            }
+//        });
 
         botaoChats.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -105,11 +136,16 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
         botaoFeed.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                startActivity(new Intent(ActivityCentral.this, ActivityTimelineUsuarioAtual.class));
+                startActivity(new Intent(ActivityCentral.this, ActivityTimelineUsuarioAtual.class)
+                        .putExtra("idUsuario", String.valueOf(sharp.getInt("uid", 0)))
+                        .putExtra("nomeUsuario", sharp.getString("nome", ""))
+                        .putExtra("urlImagemUsuario", sharp.getString("imagemURL", ""))
+                        .putExtra("bioUsuario", sharp.getString("bio", ""))
+                        .putExtra("token", sharp.getString("token", "")));
             }
         });
-        setupCardStackView();
-        setupButton();
+        inicializa();
+        defineBotoes();
         //verificaUsuarios();
     }
 
@@ -159,10 +195,6 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
         Log.d("CardStackView", "Unspawn: (" + position + ") " + textView.getText());
     }
 
-    private void setupCardStackView(){
-        inicializa();
-    }
-
     private void alimentaCards(CallsAPI callsAPI){
         sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
         callsAPI.retrofitBuilder().getUsuarios("Bearer " + sharp.getString("token", "")).enqueue(new Callback<Usuarios>(){
@@ -175,9 +207,9 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
                         OutroUsuario usuario = response.body().getUserFilter().get(i);
                         Perfis perfil = usuario.getProfiles();
                         Distancia distancia = usuario.getLocations();
-                        cards.add(new Spot(perfil.getName() + ", " + perfil.getAge(), "a " + distancia.getDistance() + "km daqui", CallsAPI.uploadsDir + perfil.getFilename(), usuario.getId()));
+                        cards.add(new Spot(perfil.getName() + ", " + perfil.getAge(), "a " + distancia.getDistance() + "km daqui", CallsAPI.uploadsDir + perfil.getFilename(), usuario.getId(), perfil.getBio()));
                     }if(cards.size() > 0){
-                        adapter = new CardStackAdapter(ActivityCentral.this, cards);
+                        adapter = new AdapterCards(ActivityCentral.this, cards);
                         csvw.setAdapter(adapter);
                         acabouAviso.setVisibility(View.GONE);
                         acabouDesc.setVisibility(View.GONE);
@@ -211,7 +243,7 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
         });
     }
 
-    private void setupButton(){
+    private void defineBotoes(){
         View skip = findViewById(R.id.skip_button);
         skip.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -315,13 +347,13 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
                         @Override
                         public void run(){
                             try{
+                                Log.d("SOCKET MATCHO", jSONO.toString());
                                 carregaTelaMatch(jSONO.getString("filename"), jSONO.getString("id"));
                             }catch(JSONException jex){
                                 //
                             }
                         }
                     });
-                    Log.d("SOCKET MATCH", jSONO.toString());
                 }catch(Exception e){
                     Log.d("SOCKET EXCEPTION", e.getMessage());
                 }
@@ -338,7 +370,7 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
             bundle.putString("usuarioImagemURL", sharp.getString("imagemURL", ""));
             bundle.putString("idMatch", idMatch);
             matchFragment.setArguments(bundle);
-            matchFragment.show(getSupportFragmentManager(), matchFragment.getClass().getSimpleName()); // possível bug
+            matchFragment.show(getSupportFragmentManager(), matchFragment.getClass().getSimpleName());
         }catch(Exception e){
             Log.d("CRASH MATCH", e.getMessage());
         }

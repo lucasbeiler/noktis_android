@@ -9,14 +9,14 @@
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
     android:paddingTop="16dp"
-    tools:context=".fragments.FragmentEditarBio">
+    tools:context=".fragments.FragmentApagarConta">
 
     <Button
-        android:text="Atualizar"
+        android:text="Continuar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/botao_salvar_bio"
-        android:layout_below="@+id/nova_bio"
+        android:id="@+id/botao_salvar_senha"
+        android:layout_below="@+id/senha_exclusao"
         android:background="@drawable/botoes_arredondados"
         android:textColor="@android:color/white" />
 
@@ -27,17 +27,19 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:textColor="#000"
-        android:text="Edite a descrição do seu perfil"
+        android:text="Confirme o encerramento"
         android:textSize="14sp"
         android:textStyle="bold" />
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:inputType="textPassword|textNoSuggestions"
         android:background="@drawable/campos_texto_arredondados"
-        android:hint="Digite sua nova bio..."
-        android:id="@+id/nova_bio"
-        android:textSize="14sp"
+        android:drawableStart="@drawable/ic_chave"
+        android:drawablePadding="2dp"
+        android:layout_height="wrap_content"
+        android:hint="Confirme a sua senha..."
+        android:id="@+id/senha_exclusao"
         android:layout_below="@+id/textView4"/>
 
 </RelativeLayout>

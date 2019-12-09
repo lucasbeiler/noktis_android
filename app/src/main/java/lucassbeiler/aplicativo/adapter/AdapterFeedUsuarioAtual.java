@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.sdsmdg.tastytoast.TastyToast;
 
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
@@ -57,7 +60,7 @@ public class AdapterFeedUsuarioAtual extends RecyclerView.Adapter<AdapterFeedUsu
         holder.horaPostView.setText(dataPost.format(listaPosts.getPost().get(position).getDate()));
         holder.descricaoMatchView.setText(listaPosts.getPost().get(position).getDescription());
 
-        if(!listaPosts.getPost().get(position).getImage().isEmpty()){
+        if(listaPosts.getPost().get(position).getImage() != null && !listaPosts.getPost().get(position).getImage().isEmpty()){
             holder.fotoPostView.setVisibility(View.VISIBLE);
             Uri uriImagemPost = Uri.parse(CallsAPI.uploadsDir + listaPosts.getPost().get(position).getImage());
             holder.fotoPostView.setImageURI(uriImagemPost);
@@ -78,7 +81,7 @@ public class AdapterFeedUsuarioAtual extends RecyclerView.Adapter<AdapterFeedUsu
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         SimpleDraweeView fotoMatchView, fotoPostView;
-        TextView nomeMatchView, descricaoMatchView, horaPostView;
+        TextView nomeMatchView, descricaoMatchView, horaPostView, nenhumPostView;
         RelativeLayout listPostsUsuarioView;
 
         public ViewHolder(@NonNull View itemView){
@@ -87,6 +90,7 @@ public class AdapterFeedUsuarioAtual extends RecyclerView.Adapter<AdapterFeedUsu
             fotoMatchView = itemView.findViewById(R.id.foto_perfil_usuario);
             fotoPostView = itemView.findViewById(R.id.foto_post_usuario);
             horaPostView = itemView.findViewById(R.id.hora_post);
+            nenhumPostView = itemView.findViewById(R.id.nenhum_post_aviso);
             nomeMatchView = itemView.findViewById(R.id.nome_usuario_post);
             listPostsUsuarioView = itemView.findViewById(R.id.post_usuario);
             descricaoMatchView = itemView.findViewById(R.id.publicacao_usuario);

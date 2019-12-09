@@ -22,18 +22,15 @@ import com.sdsmdg.tastytoast.TastyToast;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.File;
 
 import lucassbeiler.aplicativo.R;
 import lucassbeiler.aplicativo.adapter.AdapterFeedUsuarioAtual;
-import lucassbeiler.aplicativo.fragments.FragmentEditarBio;
-import lucassbeiler.aplicativo.models.Login;
-import lucassbeiler.aplicativo.models.Post;
+import lucassbeiler.aplicativo.fragments.FragmentEditarPerfilMenu;
 import lucassbeiler.aplicativo.models.Posts;
-import lucassbeiler.aplicativo.models.Usuarios;
 import lucassbeiler.aplicativo.utilitarias.AtualizaUsuario;
 import lucassbeiler.aplicativo.utilitarias.CallsAPI;
 import okhttp3.MediaType;
@@ -51,7 +48,8 @@ public class ActivityTimelineUsuarioAtual extends AppCompatActivity{
     private int codigoRequisicaoImutavel;
     private FloatingActionButton botaoEnviarPost, botaoSelecionarFoto;
     private EditText campoPost;
-    private CardView feedTopo;
+    private TextView nenhumPostView;
+    private CardView feedTopo, enviarPostCardView;
     private AtualizaUsuario atualizaUsuario = new AtualizaUsuario();
 
 
@@ -59,70 +57,84 @@ public class ActivityTimelineUsuarioAtual extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline_usuario_atual);
-        TextView nomeFeedUsuario, bioFeedUsuario;
+        final TextView nomeFeedUsuario, bioFeedUsuario, cidadeFeedUsuario, editarPerfil;
 
-        final SharedPreferences sharp;
-        sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
+        Integer idUsuario = Integer.valueOf(getIntent().getStringExtra("idUsuario"));
+        String nomeUsuario = getIntent().getStringExtra("nomeUsuario");
+        String urlImagemUsuario = getIntent().getStringExtra("urlImagemUsuario");
+        String token = getIntent().getStringExtra("token");
+        String bio = getIntent().getStringExtra("bioUsuario");
 
         fotoFeedUsuario = findViewById(R.id.foto_feed_usuario);
         feedTopo = findViewById(R.id.card_view_feed_topo);
+        bioFeedUsuario = findViewById(R.id.bio_detalhes);
+        cidadeFeedUsuario = findViewById(R.id.cidade_detalhes);
+        nenhumPostView = findViewById(R.id.nenhum_post_aviso);
         nomeFeedUsuario = findViewById(R.id.nome_usuario_tl);
-        bioFeedUsuario = findViewById(R.id.bio_usuario_tl);
         botaoEnviarPost = findViewById(R.id.botao_enviar_post);
         botaoSelecionarFoto = findViewById(R.id.botao_foto_enviar_feed);
         botaoSelecionarFotoSelecionado = findViewById(R.id.botao_foto_enviar_feed_selecionado);
         campoPost = findViewById(R.id.escrever_post);
+        enviarPostCardView = findViewById(R.id.card_view_enviar_post);
+        editarPerfil = findViewById(R.id.editar_perfil);
 
-        Uri uriImagem = Uri.parse(sharp.getString("imagemURL", ""));
-        nomeFeedUsuario.setText(sharp.getString("nome", ""));
+        Uri uriImagem = Uri.parse(urlImagemUsuario);
+        nomeFeedUsuario.setText(nomeUsuario);
         fotoFeedUsuario.setImageURI(uriImagem);
-        bioFeedUsuario.setText(sharp.getString("bio", ""));
 
         botaoEnviarPost.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                fazPostagem("", sharp.getString("token", ""), new CallsAPI(), campoPost.getText().toString());
-            }
-        });
-        fotoFeedUsuario.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, 1);
+                sharp = getSharedPreferences("login", MODE_PRIVATE);
+                fazPostagem(sharp.getString("token", ""), new CallsAPI(), campoPost.getText().toString());
             }
         });
 
-        botaoSelecionarFoto.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, 24);
-            }
-        });
-
-        botaoSelecionarFotoSelecionado.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, 24);
-            }
-        });
-
-        feedTopo.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                try{
-                    FragmentEditarBio editarBioFragment = new FragmentEditarBio();
-                    editarBioFragment.show(getSupportFragmentManager(), editarBioFragment.getClass().getSimpleName());
-                }catch(Exception e){
-                    Log.d("CRASH MATCH", e.getMessage());
+        if(token != null && !token.isEmpty()) {
+            fotoFeedUsuario.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, 1);
                 }
-            }
-        });
-        baixaPosts(new CallsAPI());
+            });
+
+            botaoSelecionarFoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, 24);
+                }
+            });
+
+            botaoSelecionarFotoSelecionado.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, 24);
+                }
+            });
+
+            feedTopo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        FragmentEditarPerfilMenu fragmentEditarBio = new FragmentEditarPerfilMenu();
+                        fragmentEditarBio.show(getSupportFragmentManager(), fragmentEditarBio.getClass().getSimpleName());
+                    } catch (Exception e) {
+                        Log.d("CRASH MATCH", e.getMessage());
+                    }
+                }
+            });
+        }else{
+            enviarPostCardView.setVisibility(View.GONE);
+            editarPerfil.setVisibility(View.GONE);
+        }
+        bioFeedUsuario.setText(bio);
+        baixaPosts(new CallsAPI(), idUsuario);
     }
 
     @Override
@@ -155,7 +167,7 @@ public class ActivityTimelineUsuarioAtual extends AppCompatActivity{
                     botaoEnviarPost.setOnClickListener(new View.OnClickListener(){
                         @Override
                         public void onClick(View v){
-                            fazPostagem(imagemUrl.toString(), token, new CallsAPI(), campoPost.getText().toString());
+                            fazPostagemComImagem(imagemUrl.toString(), token, new CallsAPI(), campoPost.getText().toString());
                         }
                     });
                 }else if(codigoResultado == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
@@ -167,8 +179,8 @@ public class ActivityTimelineUsuarioAtual extends AppCompatActivity{
         }
     }
 
-    private void enviaArquivo(String caminho, String token, CallsAPI callsAPI) {
-        File arquivoImagem = new File(caminho.substring(caminho.lastIndexOf(":")+1));
+    private void enviaArquivo(final String caminho, String token, CallsAPI callsAPI) {
+        final File arquivoImagem = new File(caminho.substring(caminho.lastIndexOf(":")+1));
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), arquivoImagem);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", arquivoImagem.getName(), requestFile);
         callsAPI.retrofitBuilder().uploadFoto("Bearer " + token, body).enqueue(new Callback<ResponseBody>(){
@@ -178,8 +190,6 @@ public class ActivityTimelineUsuarioAtual extends AppCompatActivity{
                     if(response.isSuccessful() && response.body() != null){
                         TastyToast.makeText(ActivityTimelineUsuarioAtual.this, "Imagem atualizada!", Toast.LENGTH_LONG, TastyToast.SUCCESS);
                         atualizaUsuario.atualizaDadosUsuario(new CallsAPI(), getApplicationContext());
-                        startActivity(new Intent(ActivityTimelineUsuarioAtual.this, ActivityTimelineUsuarioAtual.class));
-                        finish();
                     }else{
                         TastyToast.makeText(ActivityTimelineUsuarioAtual.this, new JSONObject(response.errorBody().string()).getString("error"), Toast.LENGTH_LONG, TastyToast.ERROR);
                     }
@@ -195,21 +205,22 @@ public class ActivityTimelineUsuarioAtual extends AppCompatActivity{
         });
     }
 
-    public void fazPostagem(String caminho, String token, CallsAPI callsAPI, String descricao){
+    private void fazPostagemComImagem(String caminho, String token, CallsAPI callsAPI, String descricao){
         MultipartBody.Part body = null;
-        if(!caminho.isEmpty()) {
-            File arquivoImagem = new File(caminho.substring(caminho.lastIndexOf(":") + 1));
-            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), arquivoImagem);
-            body = MultipartBody.Part.createFormData("file", arquivoImagem.getName(), requestFile);
-        }
+        File arquivoImagem = new File(caminho.substring(caminho.lastIndexOf(":") + 1));
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), arquivoImagem);
+        body = MultipartBody.Part.createFormData("file", arquivoImagem.getName(), requestFile);
 
         RequestBody description = RequestBody.create(okhttp3.MultipartBody.FORM, descricao);
-        callsAPI.retrofitBuilder().enviaPost("Bearer " + token, body, description).enqueue(new Callback<ResponseBody>(){
+        callsAPI.retrofitBuilder().enviaPostComImagem("Bearer " + token, body, description).enqueue(new Callback<ResponseBody>(){
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response){
                 try{
                     if(response.isSuccessful() && response.body() != null){
-                        baixaPosts(new CallsAPI());
+                        botaoSelecionarFotoSelecionado.setVisibility(View.GONE);
+                        botaoSelecionarFoto.setVisibility(View.GONE);
+                        campoPost.setText("");
+                        baixaPosts(new CallsAPI(), sharp.getInt("uid", 0));
                         TastyToast.makeText(ActivityTimelineUsuarioAtual.this, "Publicação enviada!", Toast.LENGTH_LONG, TastyToast.SUCCESS);
                     }else{
                         TastyToast.makeText(ActivityTimelineUsuarioAtual.this, new JSONObject(response.errorBody().string()).getString("error"), Toast.LENGTH_LONG, TastyToast.ERROR);
@@ -226,10 +237,35 @@ public class ActivityTimelineUsuarioAtual extends AppCompatActivity{
         });
     }
 
-    private void baixaPosts(CallsAPI callsAPI){
+    private void fazPostagem(String token, CallsAPI callsAPI, String descricao){
+        RequestBody description = RequestBody.create(okhttp3.MultipartBody.FORM, descricao);
+        callsAPI.retrofitBuilder().enviaPost("Bearer " + token, description).enqueue(new Callback<ResponseBody>(){
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response){
+                try{
+                    if(response.isSuccessful() && response.body() != null){
+                        campoPost.setText("");
+                        baixaPosts(new CallsAPI(), sharp.getInt("uid", 0));
+                        TastyToast.makeText(ActivityTimelineUsuarioAtual.this, "Publicação enviada!", Toast.LENGTH_LONG, TastyToast.SUCCESS);
+                    }else{
+                        TastyToast.makeText(ActivityTimelineUsuarioAtual.this, new JSONObject(response.errorBody().string()).getString("error"), Toast.LENGTH_LONG, TastyToast.ERROR);
+                    }
+                }catch(Exception e){
+                    Log.d("Upload", e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t){
+                Log.d("Upload", t.getMessage());
+            }
+        });
+    }
+
+    private void baixaPosts(CallsAPI callsAPI, Integer idUsuario){
         SharedPreferences sharp;
         sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
-        callsAPI.retrofitBuilder().baixaPosts(new Posts(sharp.getInt("uid", 0)),"Bearer " + sharp.getString("token", "")).enqueue(new Callback<Posts>(){
+        callsAPI.retrofitBuilder().baixaPosts(new Posts(idUsuario),"Bearer " + sharp.getString("token", "")).enqueue(new Callback<Posts>(){
             @Override
             public void onResponse(Call<Posts> call, final Response<Posts> response){
                 if(response.isSuccessful()){
@@ -238,6 +274,9 @@ public class ActivityTimelineUsuarioAtual extends AppCompatActivity{
                     AdapterFeedUsuarioAtual adapter = new AdapterFeedUsuarioAtual(response.body(), response.body().getPerfis(), getApplicationContext());
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+                    if(adapter.getItemCount() < 1){
+                        nenhumPostView.setVisibility(View.VISIBLE);
+                    }
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 }else{
                     try{

@@ -14,12 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import io.socket.client.Socket;
 import lucassbeiler.aplicativo.R;
 import lucassbeiler.aplicativo.adapter.AdapterFeedUsuarioAtual;
 import lucassbeiler.aplicativo.adapter.AdapterSessoes;
 import lucassbeiler.aplicativo.models.Posts;
 import lucassbeiler.aplicativo.models.Sessoes;
 import lucassbeiler.aplicativo.utilitarias.CallsAPI;
+import lucassbeiler.aplicativo.utilitarias.ClasseApplication;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,7 +43,9 @@ public class FragmentSessoes extends DialogFragment {
                 if(response.isSuccessful()){
                     Log.d("SESSAO", "SESSAO " + response.body().getSessions().get(0).getIp());
                     RecyclerView recyclerView = getView().findViewById(R.id.recycler_view_sessoes);
-                    AdapterSessoes adapter = new AdapterSessoes(response.body(), getActivity());
+                     final ClasseApplication app = (ClasseApplication) getActivity().getApplication();
+                      Socket socket = app.getSocket();
+                    AdapterSessoes adapter = new AdapterSessoes(response.body(), getActivity(), socket);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

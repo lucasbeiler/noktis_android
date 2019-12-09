@@ -75,5 +75,9 @@ public interface Rotas {
 
     @Multipart
     @POST("/posts/publish")
-    Call<ResponseBody> enviaPost(@Header("Authorization") String token, @Part MultipartBody.Part file, @Part("description") RequestBody description);
+    Call<ResponseBody> enviaPostComImagem(@Header("Authorization") String token, @Part MultipartBody.Part file, @Part("description") RequestBody description);
+
+    @Multipart
+    @POST("/posts/publish")
+    Call<ResponseBody> enviaPost(@Header("Authorization") String token, @Part("description") RequestBody description);
 }

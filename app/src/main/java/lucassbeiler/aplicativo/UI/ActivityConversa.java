@@ -99,7 +99,7 @@ public class ActivityConversa extends AppCompatActivity{
     }
 
     private void addMessage(String username, String message) {
-        mMessages.add(new Message.Builder(Message.TYPE_MESSAGE)
+        mMessages.add(new Message.Builder(0)
                 .username(username).message(message).build());
         mAdapter.notifyItemInserted(mMessages.size() - 1);
         mMessagesView.scrollToPosition(mAdapter.getItemCount() - 1);

@@ -29,7 +29,7 @@
         android:text="Continuar deslizando"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/botaoSair"
+        android:id="@+id/botao_sair"
         android:layout_below="@+id/botao_match_chat"
         android:background="@drawable/botoes_arredondados"
         android:textColor="@android:color/white" />

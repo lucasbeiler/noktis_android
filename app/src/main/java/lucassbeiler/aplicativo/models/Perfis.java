@@ -2,7 +2,16 @@ package lucassbeiler.aplicativo.models;
 
 public class Perfis{
     private String name, sex, bio, filename, email;
-    private Integer age;
+    private Integer age, max_distance;
+    private Integer[] age_range;
+
+    public Integer getMax_distance() {
+        return max_distance;
+    }
+
+    public Integer[] getAge_range() {
+        return age_range;
+    }
 
     public String getName(){
         return name;

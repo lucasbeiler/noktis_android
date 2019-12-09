@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -20,14 +21,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.socket.client.Socket;
 import lucassbeiler.aplicativo.R;
 import lucassbeiler.aplicativo.UI.ActivityConversa;
+import lucassbeiler.aplicativo.UI.ActivityLogin;
 import lucassbeiler.aplicativo.UI.ActivityMatches;
 import lucassbeiler.aplicativo.models.AlteracaoConta;
 import lucassbeiler.aplicativo.models.OutroUsuario;
@@ -35,6 +39,7 @@ import lucassbeiler.aplicativo.models.Sessoes;
 import lucassbeiler.aplicativo.models.Usuario;
 import lucassbeiler.aplicativo.models.Usuarios;
 import lucassbeiler.aplicativo.utilitarias.CallsAPI;
+import lucassbeiler.aplicativo.utilitarias.ClasseApplication;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,11 +47,14 @@ import retrofit2.Response;
 
 public class AdapterSessoes extends RecyclerView.Adapter<AdapterSessoes.ViewHolder>{
     private Sessoes listaSessoes;
+    private SharedPreferences sharp;
     private Context context;
+    private Socket socket;
 
-    public AdapterSessoes(Sessoes listaSessoes, Context context){
+    public AdapterSessoes(Sessoes listaSessoes, Context context, Socket socket){
         this.listaSessoes = listaSessoes;
         this.context = context;
+        this.socket = socket;
     }
 
     @NonNull
@@ -61,7 +69,7 @@ public class AdapterSessoes extends RecyclerView.Adapter<AdapterSessoes.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position){
 //        Uri uriImagem = Uri.parse(CallsAPI.uploadsDir + listaSessoes.getSessions().get(position).getAuthorization());
 //        holder.fotoMatchView.setImageURI(uriImagem);
-        SharedPreferences sharp = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+        sharp = context.getSharedPreferences("login", Context.MODE_PRIVATE);
         String celular = listaSessoes.getSessions().get(position).getPhone();
 //        Log.d("HORAPOST", String.valueOf(listaSessoes.getSessions().get(position).getTimestamp()));
 //        SimpleDateFormat dataPost = new SimpleDateFormat("dd/MM/yyyy '" + context.getString(R.string.as_horas) + "' kk:mm");
@@ -83,6 +91,20 @@ public class AdapterSessoes extends RecyclerView.Adapter<AdapterSessoes.ViewHold
                     public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> resposta){
                         if(resposta.isSuccessful()){
                             try {
+                                if(listaSessoes.getSessions().get(position).getAuthorization().equals(sharp.getString("token", ""))){
+                                    sharp = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor edtr = sharp.edit();
+                                    edtr.clear();
+                                    edtr.apply();
+                                    // final ClasseApplication app = (ClasseApplication) getApplication();
+                                    //  socket = app.getSocket();
+                                    socket.disconnect();
+                                    //  socket = app.anulaSocket();
+                                    ((AppCompatActivity)context).finishAffinity();
+                                    context.startActivity(new Intent(context, ActivityLogin.class));
+                                    ((AppCompatActivity)context).finish();
+                                    TastyToast.makeText(context, "Logout executado com sucesso!", Toast.LENGTH_LONG, TastyToast.SUCCESS);
+                                }
                                 TastyToast.makeText(context, resposta.body().string(), Toast.LENGTH_LONG, TastyToast.SUCCESS);
                             }catch (Exception e){
                                 //
@@ -113,7 +135,7 @@ public class AdapterSessoes extends RecyclerView.Adapter<AdapterSessoes.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView tituloSessaoView, ipSessaoView, horaInicioSessaoView;
         RelativeLayout listMatchesView;
-        FloatingActionButton botaoEncerrarSessao;
+        TextView botaoEncerrarSessao;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
