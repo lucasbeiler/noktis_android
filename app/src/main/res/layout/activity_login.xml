@@ -133,7 +133,6 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="44dp"
-                    app:drawableStartCompat="@drawable/ic_adicionar"
                     android:text="@string/criar_conta"
                     android:textAllCaps="true"
                     android:textColor="@color/Preto"
