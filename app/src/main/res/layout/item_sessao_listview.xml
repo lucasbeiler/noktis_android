@@ -22,8 +22,9 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_toEndOf="@+id/foto_post_usuario"
                 android:id="@+id/celular_sessao"
+                android:paddingTop="10dp"
+                android:layout_below="@+id/ip_sessao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -36,33 +37,17 @@
                 android:id="@+id/encerrar_sessao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:paddingEnd="2dp"
-                android:paddingTop="2dp"
                 android:text="Encerrar"
+                android:paddingStart="30dp"
+                android:layout_toEndOf="@+id/ip_sessao"
                 android:textColor="#FF0000"
                 android:textStyle="bold"
                 android:textSize="12sp"
-                android:textAllCaps="true"
-                />
+                android:textAllCaps="true" />
 
             <TextView
-                android:layout_toEndOf="@+id/foto_post_usuario"
-                android:id="@+id/hora_inicio_sessao"
-                android:layout_width="wrap_content"
-                android:layout_below="@id/celular_sessao"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:textColor="#000"
-                android:paddingBottom="15dp"/>
-
-            <TextView
-                android:layout_toEndOf="@+id/foto_post_usuario"
                 android:id="@+id/ip_sessao"
                 android:layout_width="wrap_content"
-                android:layout_below="@id/hora_inicio_sessao"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="12sp"

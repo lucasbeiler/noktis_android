@@ -140,7 +140,7 @@ public class AdapterSessoes extends RecyclerView.Adapter<AdapterSessoes.ViewHold
         public ViewHolder(@NonNull View itemView){
             super(itemView);
 
-            horaInicioSessaoView = itemView.findViewById(R.id.hora_inicio_sessao);
+//            horaInicioSessaoView = itemView.findViewById(R.id.hora_inicio_sessao);
             botaoEncerrarSessao = itemView.findViewById(R.id.encerrar_sessao);
             tituloSessaoView = itemView.findViewById(R.id.celular_sessao);
             ipSessaoView = itemView.findViewById(R.id.ip_sessao);
