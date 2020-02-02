@@ -76,13 +76,6 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
-//      //  esqueceuSenha.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(ActivityLogin.this, ActivityRecuperarSenha.class));
-//            }
-//        });
-
         if (loginLembrar.getBoolean("salvarLogin", true)) {
             enderecoEmail.setText(loginLembrar.getString("email", ""));
             usuarioSenha.setText(loginLembrar.getString("senha", ""));
@@ -162,7 +155,7 @@ public class ActivityLogin extends AppCompatActivity {
     private void verificaLogin(){
         sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
         if(!sharp.getString("token", "").isEmpty()){
-            Log.d("TOKEN VAZIO", "TOKEN VAZIO");
+            Log.d("TOKEN", sharp.getString("token", "VAZIO"));
             startActivity(new Intent(ActivityLogin.this, ActivityCentral.class));
             finish();
         }

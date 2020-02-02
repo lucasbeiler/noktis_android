@@ -82,43 +82,6 @@ public class ActivityCentral extends AppCompatActivity implements CardStackListe
         botaoLike = findViewById(R.id.like_button);
         botaoDislike = findViewById(R.id.skip_button);
 
-//        botaoSairConta.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view){
-//                final SharedPreferences sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
-//                CallsAPI callsAPI = new CallsAPI();
-//                callsAPI.retrofitBuilder().encerraSessao("Bearer " + sharp.getString("token", "")).enqueue(new Callback<ResponseBody>(){
-//                    @Override
-//                    public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> resposta){
-//                        if(resposta.isSuccessful()){
-//                            ClasseApplication app = (ClasseApplication) getApplication();
-//                            socket = app.getSocket();
-//                            socket.disconnect();
-//                            socket = app.anulaSocket();
-//                            SharedPreferences.Editor edtr = sharp.edit();
-//                            edtr.clear();
-//                            edtr.apply();
-//                            finishAffinity();
-//                            startActivity(new Intent(ActivityCentral.this, ActivityLogin.class));
-//                            finish();
-//                            TastyToast.makeText(ActivityCentral.this, "Logout executado com sucesso!", Toast.LENGTH_LONG, TastyToast.SUCCESS);
-//                        }else{
-//                            try{
-//                                TastyToast.makeText(ActivityCentral.this, new JSONObject(resposta.errorBody().string()).getString("error"), Toast.LENGTH_LONG, TastyToast.ERROR);
-//                            }catch(Exception e){
-//                                Log.d("EDITACONTA EXCEPTION", e.getMessage());
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<ResponseBody> call, Throwable t){
-//                        Log.d("EDITACONTA EXCEPTION2", t.getMessage());
-//                    }
-//                });
-//            }
-//        });
-
         botaoChats.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
