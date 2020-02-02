@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.auth0.android.jwt.DecodeException;
+import com.auth0.android.jwt.JWT;
 import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.sdsmdg.tastytoast.TastyToast;
@@ -162,30 +164,36 @@ public class ActivityRegistro extends AppCompatActivity implements DatePickerDia
         callsAPI.retrofitBuilder().criaConta(registro).enqueue(new Callback<Registro>() {
             @Override
             public void onResponse(Call<Registro> call, Response<Registro> resposta) {
-                if(resposta.isSuccessful()){
-                    if(!resposta.body().getToken().isEmpty()){
-                        sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor edtr = sharp.edit();
-                        edtr.putString("token", resposta.body().getToken());
-                        edtr.putInt("uid", resposta.body().getUser().getId());
-                        edtr.putString("nome", resposta.body().getUser().getName());
-                        edtr.putString("email", resposta.body().getUser().getEmail());
-                        edtr.putString("senha", Senhaa.getText().toString());
-                        edtr.putString("bio", resposta.body().getUser().getBio());
-                        edtr.putString("imagemURL", callsAPI.uploadsDir + resposta.body().getUser().getFilename());
-                        edtr.apply();
+                try {
+                    if (resposta.isSuccessful()) {
+                        if (!resposta.body().getToken().isEmpty()) {
+                            JWT jwt = new JWT(resposta.body().getToken());
+                            sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor edtr = sharp.edit();
+                            edtr.putString("token", resposta.body().getToken());
+                            edtr.putInt("uid", resposta.body().getUser().getId());
+                            edtr.putString("nome", resposta.body().getUser().getName());
+                            edtr.putString("email", resposta.body().getUser().getEmail());
+                            edtr.putString("senha", Senhaa.getText().toString());
+                            edtr.putString("bio", resposta.body().getUser().getBio());
+                            edtr.putString("imagemURL", callsAPI.uploadsDir + resposta.body().getUser().getFilename());
+                            edtr.apply();
+                            emblemaLoading.setVisibility(View.GONE);
+                            finishAffinity();
+                            startActivity(new Intent(ActivityRegistro.this, ActivityCentral.class));
+                            finish();
+                        }
+                    } else {
                         emblemaLoading.setVisibility(View.GONE);
-                        finishAffinity();
-                        startActivity(new Intent(ActivityRegistro.this, ActivityCentral.class));
-                        finish();
+                        try {
+                            TastyToast.makeText(ActivityRegistro.this, new JSONObject(resposta.errorBody().string()).getString("error"), Toast.LENGTH_LONG, TastyToast.ERROR);
+                        } catch (Exception e) {
+                            Log.d("REGISTRO EXCEPTION", e.getMessage());
+                        }
                     }
-                }else{
+                } catch (DecodeException dex) {
                     emblemaLoading.setVisibility(View.GONE);
-                    try {
-                        TastyToast.makeText(ActivityRegistro.this, new JSONObject(resposta.errorBody().string()).getString("error"), Toast.LENGTH_LONG, TastyToast.ERROR);
-                    }catch (Exception e){
-                        Log.d("REGISTRO EXCEPTION", e.getMessage());
-                    }
+                    TastyToast.makeText(ActivityRegistro.this, "Token inválido recebido", Toast.LENGTH_LONG, TastyToast.ERROR);
                 }
             }
 
