@@ -4,6 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
+import com.auth0.android.jwt.DecodeException;
+import com.auth0.android.jwt.JWT;
 import com.google.android.material.textfield.TextInputLayout;
 import com.sdsmdg.tastytoast.TastyToast;
 
@@ -11,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.PackageManager;
+import android.graphics.ImageDecoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -118,30 +122,36 @@ public class ActivityLogin extends AppCompatActivity {
         callsAPI.retrofitBuilder().fazLogin(login).enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> resposta) {
-                if(resposta.body() != null && resposta.isSuccessful()){
-                    if(!resposta.body().getToken().isEmpty()){
-                        sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor edtr = sharp.edit();
-                        edtr.putString("token", resposta.body().getToken());
-                        edtr.putString("email", resposta.body().getUser().getEmail());
-                        edtr.putString("nome", resposta.body().getUser().getName());
-                        edtr.putString("senha", usuarioSenha.getText().toString());
-                        edtr.putInt("uid", resposta.body().getUser().getId());
-                        edtr.putString("bio", resposta.body().getUser().getBio());
-                        edtr.putString("imagemURL", callsAPI.uploadsDir + resposta.body().getUser().getFilename());
-                        edtr.apply();
-                        barraDeLoading.setVisibility(View.GONE);
-                        finishAffinity();
-                        startActivity(new Intent(ActivityLogin.this, ActivityCentral.class));
-                        finish();
+                try {
+                    if (resposta.body() != null && resposta.isSuccessful()) {
+                        if (!resposta.body().getToken().isEmpty()) {
+                            JWT jwt = new JWT(resposta.body().getToken());
+                            sharp = getSharedPreferences("login", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor edtr = sharp.edit();
+                            edtr.putString("token", resposta.body().getToken());
+                            edtr.putString("email", resposta.body().getUser().getEmail());
+                            edtr.putString("nome", resposta.body().getUser().getName());
+                            edtr.putString("senha", usuarioSenha.getText().toString());
+                            edtr.putInt("uid", resposta.body().getUser().getId());
+                            edtr.putString("bio", resposta.body().getUser().getBio());
+                            edtr.putString("imagemURL", callsAPI.uploadsDir + resposta.body().getUser().getFilename());
+                            edtr.apply();
+                            barraDeLoading.setVisibility(View.GONE);
+                            finishAffinity();
+                            startActivity(new Intent(ActivityLogin.this, ActivityCentral.class));
+                            finish();
+                        }
+                    } else {
+                        try {
+                            TastyToast.makeText(ActivityLogin.this, new JSONObject(resposta.errorBody().string()).getString("error"), Toast.LENGTH_LONG, TastyToast.ERROR);
+                            barraDeLoading.setVisibility(View.GONE);
+                        } catch (Exception e) {
+                            Log.d("LOGIN EXCEPTION", e.getMessage());
+                        }
                     }
-                }else{
-                    try {
-                        TastyToast.makeText(ActivityLogin.this, new JSONObject(resposta.errorBody().string()).getString("error"), Toast.LENGTH_LONG, TastyToast.ERROR);
-                        barraDeLoading.setVisibility(View.GONE);
-                    }catch (Exception e){
-                        Log.d("LOGIN EXCEPTION", e.getMessage());
-                    }
+                }catch (DecodeException dex){
+                    barraDeLoading.setVisibility(View.GONE);
+                    TastyToast.makeText(ActivityLogin.this, "Token inválido recebido", Toast.LENGTH_LONG, TastyToast.ERROR);
                 }
             }
 
